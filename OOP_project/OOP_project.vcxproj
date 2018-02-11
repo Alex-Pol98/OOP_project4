@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OOP_project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Files\Item.cpp" />
+    <ClCompile Include="Files\Living.cpp" />
+    <ClCompile Include="Files\Source.cpp" />
+    <ClCompile Include="Files\Spell.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{35B777B1-9807-4E0D-85D0-6B3A5B656CCB}</ProjectGuid>
@@ -114,8 +126,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
