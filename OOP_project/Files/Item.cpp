@@ -1,78 +1,53 @@
 #include <iostream>
 #include <string>
+#include "Item.h"
 
 
 using namespace std;
 
-/*Abstract class Item*/
-class Item
+
+/*Item functions*/
+Item::Item(string nm, int pr, int mlvl)
 {
-protected:
-	string name;
-	int price;
-	int min_lvl;
+	name = nm;
+	price = pr;
+	min_lvl = mlvl;
+	cout << "I just created an Item" << endl;
+}
 
-public:
-	virtual string get_name() = 0;
-	Item(string nm, int pr, int mlvl)
-	{
-		name = nm;
-		price = pr;
-		min_lvl = mlvl;
-		cout << "I just created an Item" << endl;
-	}
-	virtual int get_price() = 0;
-	virtual int get_minlvl() = 0;
-};
 
-class Weapon :public Item
+/*Weapon functions*/
+Weapon::Weapon(string nm, int pr, int mlvl, double dmg, bool hd) : Item(nm, pr, mlvl)
 {
-protected:
-	double damage;
-	bool hand; /*0=2_Handed 1=1_Handed*/
+	damage = dmg;
+	hand = hd;
+}
+double Weapon::get_damage() { return damage; }
+bool Weapon::get_hand() { return hand; }
+string Weapon::get_name() { return name; }
+int Weapon:: get_price() { return price; }
+int Weapon:: get_minlvl() { return min_lvl; }
 
-public:
-	Weapon(string nm, int pr, int mlvl, double dmg, bool hd) : Item(nm, pr, mlvl)
-	{
-		damage = dmg;
-		hand = hd;
-	}
-	double get_damage() { return damage; }
-	bool get_hand() { return hand; }
-	int get_price() { return price; }
-	int get_minlvl() { return min_lvl; }
-	string get_name() { return name; }
-};
 
-class Armor : public Item
+
+/*Armor functions*/
+Armor::Armor(string nm, int pr, int mlvl, double def) : Item(nm, pr, mlvl)
 {
-protected:
-	double defence;
-	
-public:
-	Armor(string nm, int pr, int mlvl, double def) : Item(nm, pr, mlvl)
-	{
-		defence = def;
-	}
-	double get_def() { return defence; }
-	int get_price() { return price; }
-	int get_minlvl() { return min_lvl; }
-	string get_name() { return name; }
-};
+	defence = def;
+}
+double Armor::get_def() { return defence; }	
+string  Armor::get_name() { return name; }
+int  Armor::get_price() { return price; }
+int  Armor::get_minlvl() { return min_lvl; }
 
-class Potion :public Item
+
+/*Potion functions*/
+Potion::Potion(string nm, int pr, int mlvl, string tp,int pow) : Item(nm,pr,mlvl)
 {
-protected:
-	string type; /*Type of stat*/
-	int power;
-public:
-	Potion(string nm, int pr, int mlvl, string tp,int pow) : Item(nm,pr,mlvl)
-	{
-		type = tp;
-		power = pow;
-	}
-	string get_type() { return type; }
-	int get_price() { return price; }
-	int get_minlvl() { return min_lvl; }
-	string get_name() { return name; }
-};
+	type = tp;
+	power = pow;
+}
+string Potion::get_type() { return type; }	
+string Potion::get_name() { return name; }
+int Potion::get_price() { return price; }
+int Potion::get_minlvl() { return min_lvl; }
