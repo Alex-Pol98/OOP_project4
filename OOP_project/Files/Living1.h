@@ -135,6 +135,7 @@ public:
 	void set_damage(int dmg);
 	void set_defence(int def);
 	void set_agility(int agi);
+	void print_stats();
 };
 
 class Dragon :public Monster

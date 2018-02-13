@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Files\Inventory.h" />
     <ClInclude Include="Files\Item.h" />
     <ClInclude Include="Files\Living1.h" />
     <ClInclude Include="Files\Spell.h" />
@@ -28,6 +29,7 @@
     <ResourceCompile Include="OOP_project.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Files\Inventory.cpp" />
     <ClCompile Include="Files\Item.cpp" />
     <ClCompile Include="Files\Living.cpp" />
     <ClCompile Include="Files\Source.cpp" />
@@ -109,6 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

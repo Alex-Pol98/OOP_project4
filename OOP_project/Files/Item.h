@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-
+ 
 using namespace std;
 
 /*Abstract class Item*/
@@ -20,32 +20,34 @@ public:
 };
 
 
-class Weapon :public Item
+class Weapon : public Item
 {
 protected:
-	double damage;
+	int damage;
 	bool hand; /*0=2_Handed 1=1_Handed*/
 
 public:
-	Weapon(string nm, int pr, int mlvl, double dmg, bool hd);
-	double get_damage();
+	Weapon(string nm, int pr, int mlvl, int dmg, bool hd);
+	int get_damage();
 	bool get_hand();
 	string get_name();
 	int get_price();
 	int get_minlvl();
+	void print_info();
 };
 
 class Armor : public Item
 {
 protected:
-	double defence;
+	int defence;
 
 public:
-	Armor(string nm, int pr, int mlvl, double def);
-	double get_def();
+	Armor(string nm, int pr, int mlvl, int def);
+	int get_def();
 	string get_name();
 	int get_price();
 	int get_minlvl();
+	void print_info();
 };
 
 class Potion :public Item
@@ -59,4 +61,5 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
+	void print_info();
 };

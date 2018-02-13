@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Living1.h"
+#include "Spell.h"
 
 using namespace std;
 
@@ -94,6 +95,15 @@ int Monster::get_agility() { return agility; }
 void Monster::set_damage(int dmg) { damage = dmg; }
 void Monster::set_defence(int def) { defence = def; }	
 void Monster::set_agility(int agi) { agility = agi; }
+void Monster::print_stats()
+{
+	cout << "Monster statistics: " << endl;
+	cout << "Health= " << health << endl;
+	cout << "Level= " << lvl << endl;
+	cout << "Damage= " << damage << endl;
+	cout << "Defence= " << defence << endl;
+	cout << "Agility= " << agility << endl;
+}
 
 
 /*Dragon functions*/
