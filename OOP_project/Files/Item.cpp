@@ -28,6 +28,7 @@ string Weapon::get_name() { return name; }
 int Weapon:: get_price() { return price; }
 int Weapon:: get_minlvl() { return min_lvl; }
 
+
 void Weapon::print_info()
 {
 	cout << "Weapon information: " << endl;
@@ -53,6 +54,7 @@ Armor::Armor(string nm, int pr, int mlvl, int def) : Item(nm, pr, mlvl)
 }
 int Armor::get_def() { return defence; }	
 string  Armor::get_name() { return name; }
+bool Armor::get_equip() { return equip; }
 int  Armor::get_price() { return price; }
 int  Armor::get_minlvl() { return min_lvl; }
 

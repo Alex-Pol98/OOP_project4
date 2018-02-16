@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Living1.h"
-#include "Spell.h"
+#include "Living.h"
 
 using namespace std;
 
@@ -23,8 +22,24 @@ void Hero::print_stats()
 	cout << "Money= " << money << endl;
 	cout << "Experience= " << experience << endl;
 	cout << "Exprerience required= " << exp_req << endl;
-}
 
+	if (weapon != NULL)
+	{
+		cout << "Equiped weapon: " << weapon->get_name() << endl;
+	}
+	else
+	{
+		cout << "No equiped weapon" << endl;
+	}
+	if (armor != NULL)
+	{
+		cout << "Equiped armor: " << armor->get_name() << endl;
+	}
+	else
+	{
+		cout << "No equiped armor" << endl;
+	}
+}
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
 int Hero::get_dexterity() { return dexterity; }
@@ -33,7 +48,129 @@ int Hero::get_money() { return money; }
 int Hero::get_experience() { return experience; }
 int Hero::get_expreq() { return exp_req; }
 
+void Hero::equip_weapon(Inventory& inv, int no)
+{
+	if (inv.weapon_list.size() >= no)
+	{
+		if (weapon == NULL)
+		{
+			weapon = new Weapon(inv.weapon_list[no - 1]);
+			inv.remove_weapon(no);
+			cout << "Weapon equipped" << endl;
+		}
+		else
+		{
+			Weapon tmp(*weapon);
+			delete weapon;
+			weapon = new Weapon(inv.weapon_list[no - 1]);
+			inv.remove_weapon(no);
+			inv.add_weapon(tmp);
+			cout << "Weapon swapped" << endl;
+		}
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
 
+void Hero::equip_armor(Inventory& inv, int no)
+{
+	if (inv.armor_list.size() >= no)
+	{
+		if (armor == NULL)
+		{
+			armor = new Armor(inv.armor_list[no - 1]);
+			inv.remove_armor(no);
+			cout << "Armor equiped" << endl;
+		}
+		else
+		{
+			Armor tmp(*armor);
+			delete armor;
+			armor = new Armor(inv.armor_list[no - 1]);
+			inv.remove_armor(no);
+			inv.add_armor(tmp);
+			cout << "Armor swapped" << endl;
+		}
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
+
+void Hero::sell_equipedweapon()
+{
+	money = +weapon->get_price()/2;
+	delete weapon;
+	weapon = NULL;
+	cout << "Equiped weapon sold" << endl;
+}
+
+void Hero::sell_equipedarmor()
+{
+	money = +armor->get_price() / 2;
+	delete armor;
+	armor = NULL;
+	cout << "Equiped armor sold" << endl;
+}
+
+void Hero::sell_weapon(Inventory& inv, int no)
+{
+	if (inv.weapon_list.size() >= no)
+	{
+		money = money +(inv.weapon_list[no - 1].get_price()/ 2);
+		inv.remove_weapon(no);
+		cout << "Weapon sold" << endl;
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
+
+void Hero::sell_armor(Inventory& inv, int no)
+{
+	if (inv.armor_list.size() >= no)
+	{
+		money = money + (inv.armor_list[no - 1].get_price() / 2);
+		inv.remove_armor(no);
+		cout << "Armor sold" << endl;
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
+
+void Hero::sell_potion(Inventory& inv, int no)
+{
+	if (inv.potion_list.size() >= no)
+	{
+		money = money + (inv.potion_list[no - 1].get_price() / 2);
+		inv.remove_potion(no);
+		cout << "Potion sold" << endl;
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
+
+void Hero::sell_spell(Inventory& inv, int no)
+{
+	if (inv.spell_list.size() >= no)
+	{
+		money = money + (inv.spell_list[no - 1].get_price() / 2);
+		inv.remove_spell(no);
+		cout << "Spell sold" << endl;
+	}
+	else
+	{
+		cout << "INVALID INPUT" << endl;
+	}
+}
 
 /*Warrior functions*/	
 void Warrior::check_levelup()

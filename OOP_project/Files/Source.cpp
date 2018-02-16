@@ -1,10 +1,8 @@
 #include <iostream>
 #include <string>
-#include "Living1.h"
-#include "Item.h"
-#include "Spell.h"
 #include "Inventory.h"
-
+#include "Spell.h"
+#include "Living.h"
 
 using namespace std;
 
@@ -12,6 +10,7 @@ int main(void)
 {
 	string a;
 	Inventory inv;
+	Paladin pal;
 	Spell sp1("Fireball", "Fire", 110, 3, 45, 20);
 	Spell sp2("Iceball", "Ice", 100, 4, 40, 18);
 	Spell sp3("Lightningball", "Lightning", 135, 5, 70, 30);
@@ -37,21 +36,20 @@ int main(void)
 	inv.add_potion(pot1);
 	inv.add_potion(pot2);
 	inv.add_potion(pot3);
-
 	inv.print_all();
 
-	inv.remove_spell(2);
-	inv.remove_spell(3);
-	inv.remove_weapon(1);
-	inv.remove_weapon(1);
-	inv.remove_armor(3);
-	inv.remove_potion(2);
-	inv.remove_potion(1);
+	pal.equip_armor(inv, 2);
+	pal.sell_armor(inv, 1);
+	pal.sell_equipedarmor();
+	pal.equip_armor(inv,1);
+	inv.print_armors();
 	cout << endl << endl;
+	pal.print_stats();
 
-	inv.print_all();
 
 
+	
+		
 	cin >> a;
 	return 0;
 }

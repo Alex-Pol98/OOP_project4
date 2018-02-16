@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Files\Inventory.h" />
     <ClInclude Include="Files\Item.h" />
-    <ClInclude Include="Files\Living1.h" />
+    <ClInclude Include="Files\Living.h" />
     <ClInclude Include="Files\Spell.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

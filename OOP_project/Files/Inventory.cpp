@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Spell.h"
-#include "Item.h"
+#include <assert.h>
 #include "Inventory.h"
 
 using namespace std;
@@ -33,6 +32,7 @@ void Inventory::remove_weapon(int no)
 	}
 	else
 	{
+
 		weapon_list.erase(weapon_list.begin() + no - 1);
 		cout << "Weapon erased" << endl;
 	}
@@ -59,6 +59,32 @@ void Inventory::remove_potion(int no)
 	{
 		potion_list.erase(potion_list.begin() + no - 1);
 		cout << "Potion erased" << endl;
+	}
+}
+
+Weapon Inventory::get_weapon(int no) 
+{ 
+		if (weapon_list.size() >= no) 
+	{ 
+		return weapon_list[no - 1]; 
+	} 
+	else 
+	{ 
+			cout << "ERROR OUT OF BOUNDS WEAPON_LIST" << endl; 
+			assert(0);
+	} 
+}
+
+Armor Inventory::get_armor(int no)
+{
+	if (armor_list.size() >= no)
+	{
+		return armor_list[no - 1];
+	}
+	else
+	{
+		cout << "ERROR OUT OF BOUNDS ARMOR_LIST" << endl;
+		assert(0);
 	}
 }
 

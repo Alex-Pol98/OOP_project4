@@ -1,7 +1,11 @@
+#ifndef INVENTORY
+#define INVENTORY
+
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "Item.h"
+#include "Spell.h"
 
 using namespace std;
 
@@ -27,9 +31,14 @@ public:
 	void remove_armor(int no);
 	void remove_potion(int no);
 
+	Weapon get_weapon(int no);
+	Armor get_armor(int no);
+
 	void print_weapons();
 	void print_armors();
 	void print_spells();
 	void print_potions();
 	void print_all();
 };
+
+#endif //INVENTORY

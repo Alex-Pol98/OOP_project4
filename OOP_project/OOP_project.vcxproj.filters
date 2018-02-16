@@ -24,10 +24,10 @@
     <ClInclude Include="Files\Item.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Files\Living1.h">
+    <ClInclude Include="Files\Inventory.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Files\Inventory.h">
+    <ClInclude Include="Files\Living.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

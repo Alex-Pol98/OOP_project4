@@ -1,5 +1,9 @@
+#ifndef SPELL
+#define SPELL
+
 #include <iostream>
 #include <string>
+
 
 
 using namespace std;
@@ -24,3 +28,5 @@ public:
 	string get_type(); /*Types: Fire,Ice,Lighting*/
 	void print_info();
 };
+
+#endif //SPELL

@@ -1,5 +1,10 @@
+#ifndef  LIVING
+#define LIVING
+
 #include <iostream>
 #include <string>
+#include "Inventory.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -30,6 +35,8 @@ protected:
 	int money;
 	int experience;
 	int exp_req;
+	Armor* armor;
+	Weapon* weapon;
 
 public:
 	Hero(int h, int mag, int str, int dex, int agi) :Living(h)
@@ -41,6 +48,8 @@ public:
 		money = 0;
 		experience = 0;
 		exp_req = 1000;
+		armor = NULL;
+		weapon = NULL;
 	}
 	virtual void check_levelup() = 0;
 	int get_magicpower();
@@ -51,6 +60,16 @@ public:
 	int get_experience();
 	int get_expreq();
 	void print_stats();
+
+	void sell_weapon(Inventory& inv,int no);
+	void sell_armor(Inventory& inv, int no);
+	void sell_potion(Inventory& inv, int no);
+	void sell_spell(Inventory& inv, int no);
+	void sell_equipedweapon();
+	void sell_equipedarmor();
+
+	void equip_weapon(Inventory& inv, int no);
+	void equip_armor(Inventory& inv, int no);
 };
 
 class Warrior :public Hero
@@ -233,3 +252,5 @@ public:
 	void set_c_defence(int def);
 	void set_c_agility(int agi);
 };
+
+#endif //LIVING

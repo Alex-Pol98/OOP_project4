@@ -1,3 +1,6 @@
+#ifndef  ITEM
+#define ITEM
+
 #include <iostream>
 #include <string>
 
@@ -19,7 +22,6 @@ public:
 	virtual int get_minlvl() = 0;
 };
 
-
 class Weapon : public Item
 {
 protected:
@@ -33,12 +35,14 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
+	bool get_equip();
 	void print_info();
 };
 
 class Armor : public Item
 {
 protected:
+	bool equip;
 	int defence;
 
 public:
@@ -47,6 +51,7 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
+	bool get_equip();
 	void print_info();
 };
 
@@ -63,3 +68,5 @@ public:
 	int get_minlvl();
 	void print_info();
 };
+
+#endif //ITEM
