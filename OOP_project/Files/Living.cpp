@@ -48,7 +48,7 @@ int Hero::get_money() { return money; }
 int Hero::get_experience() { return experience; }
 int Hero::get_expreq() { return exp_req; }
 
-void Hero::equip_weapon(Inventory& inv, int no)
+void Hero::equip_weapon(int no)
 {
 	if (inv.weapon_list.size() >= no)
 	{
@@ -74,7 +74,7 @@ void Hero::equip_weapon(Inventory& inv, int no)
 	}
 }
 
-void Hero::equip_armor(Inventory& inv, int no)
+void Hero::equip_armor(int no)
 {
 	if (inv.armor_list.size() >= no)
 	{
@@ -116,7 +116,7 @@ void Hero::sell_equipedarmor()
 	cout << "Equiped armor sold" << endl;
 }
 
-void Hero::sell_weapon(Inventory& inv, int no)
+void Hero::sell_weapon(int no)
 {
 	if (inv.weapon_list.size() >= no)
 	{
@@ -130,7 +130,7 @@ void Hero::sell_weapon(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_armor(Inventory& inv, int no)
+void Hero::sell_armor(int no)
 {
 	if (inv.armor_list.size() >= no)
 	{
@@ -144,7 +144,7 @@ void Hero::sell_armor(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_potion(Inventory& inv, int no)
+void Hero::sell_potion(int no)
 {
 	if (inv.potion_list.size() >= no)
 	{
@@ -158,7 +158,7 @@ void Hero::sell_potion(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_spell(Inventory& inv, int no)
+void Hero::sell_spell(int no)
 {
 	if (inv.spell_list.size() >= no)
 	{

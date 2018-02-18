@@ -11,7 +11,8 @@ using namespace std;
 
 class Inventory
 {
-public:
+	friend class Hero;
+protected:
 	vector<Spell> spell_list;
 	vector<Weapon> weapon_list;
 	vector<Armor> armor_list;

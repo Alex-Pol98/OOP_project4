@@ -9,7 +9,6 @@ using namespace std;
 int main(void)
 {
 	string a;
-	Inventory inv;
 	Paladin pal;
 	Spell sp1("Fireball", "Fire", 110, 3, 45, 20);
 	Spell sp2("Iceball", "Ice", 100, 4, 40, 18);
@@ -24,25 +23,25 @@ int main(void)
 	Potion pot2("Poison", 30, 2, "Poison", 2);
 	Potion pot3("Molotov", 25, 2, "Fire", 2);
 
-	inv.add_spell(sp1);
-	inv.add_spell(sp2);
-	inv.add_spell(sp3);
-	inv.add_weapon(wp1);
-	inv.add_weapon(wp2);
-	inv.add_weapon(wp3);
-	inv.add_armor(arm1);
-	inv.add_armor(arm2);
-	inv.add_armor(arm3);
-	inv.add_potion(pot1);
-	inv.add_potion(pot2);
-	inv.add_potion(pot3);
-	inv.print_all();
+	pal.inv.add_spell(sp1);
+	pal.inv.add_spell(sp2);
+	pal.inv.add_spell(sp3);
+	pal.inv.add_weapon(wp1);
+	pal.inv.add_weapon(wp2);
+	pal.inv.add_weapon(wp3);
+	pal.inv.add_armor(arm1);
+	pal.inv.add_armor(arm2);
+	pal.inv.add_armor(arm3);
+	pal.inv.add_potion(pot1);
+	pal.inv.add_potion(pot2);
+	pal.inv.add_potion(pot3);
+	pal.inv.print_all();
 
-	pal.equip_armor(inv, 2);
-	pal.sell_armor(inv, 1);
+	pal.equip_armor(2);
+	pal.sell_armor(1);
 	pal.sell_equipedarmor();
-	pal.equip_armor(inv,1);
-	inv.print_armors();
+	pal.equip_armor(1);
+	pal.inv.print_armors();
 	cout << endl << endl;
 	pal.print_stats();
 

@@ -35,14 +35,12 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
-	bool get_equip();
 	void print_info();
 };
 
 class Armor : public Item
 {
 protected:
-	bool equip;
 	int defence;
 
 public:
@@ -51,7 +49,6 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
-	bool get_equip();
 	void print_info();
 };
 
