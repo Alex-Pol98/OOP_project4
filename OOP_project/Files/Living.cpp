@@ -2,6 +2,7 @@
 #include <string>
 #include "Living.h"
 
+
 using namespace std;
 
 /*Living functions*/
@@ -171,6 +172,24 @@ void Hero::sell_spell(int no)
 		cout << "INVALID INPUT" << endl;
 	}
 }
+
+void Hero::addMoney(int mon) { money = money + mon; }
+void Hero::subMoney(int mon) { money = money - mon; }
+
+void Hero::tossArmor()
+{
+	delete armor;
+	armor = NULL;
+}
+
+void Hero::tossWeapon()
+{
+	delete weapon;
+	weapon = NULL;
+}
+
+Armor* Hero::getEquippedArmor() { return this->armor; }
+Weapon* Hero::getEquippedWeapon() { return this->weapon; }
 
 /*Warrior functions*/	
 void Warrior::check_levelup()

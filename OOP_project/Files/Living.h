@@ -5,6 +5,8 @@
 #include <string>
 #include "Inventory.h"
 #include "Item.h"
+#include "Buff.h"
+#include "Buff_list.h"
 
 using namespace std;
 
@@ -37,6 +39,7 @@ protected:
 	int exp_req;
 	Armor* armor;
 	Weapon* weapon;
+	Buff_list buffs;
 public:
 	Inventory inv;
 public:
@@ -71,6 +74,13 @@ public:
 
 	void equip_weapon(int no);
 	void equip_armor(int no);
+
+	void addMoney(int mon);
+	void subMoney(int mon);
+	void tossArmor();
+	void tossWeapon();
+	Armor* getEquippedArmor();
+	Weapon* getEquippedWeapon();
 };
 
 class Warrior :public Hero
