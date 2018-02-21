@@ -140,3 +140,26 @@ void Inventory::print_all()
 	print_potions();
 	cout << "_____________________________________________" << endl;
 }
+
+bool Inventory::is_spell_list_empty() { return spell_list.empty(); }
+
+bool Inventory::is_armor_list_empty() { return armor_list.empty(); }
+
+bool Inventory::is_weapon_list_empty() { return weapon_list.empty(); }
+
+bool Inventory::is_potion_list_empty() { return potion_list.empty(); }
+
+int Inventory::get_spell_list_size() { return spell_list.size(); }
+
+int Inventory::get_weapon_list_size() { return weapon_list.size(); }
+
+int Inventory::get_armor_list_size() { return armor_list.size(); }
+
+int Inventory::get_potion_list_size() { return potion_list.size(); }
+
+string Inventory::get_potion_type(int i) { return potion_list[i].get_type(); }
+int Inventory::get_potion_power(int i) { return potion_list[i].get_power(); }
+
+int Inventory::get_spell_manareq(int i) { return spell_list[i].get_manareq(); }
+int Inventory::get_spell_damage(int i) { return spell_list[i].get_damage(); }
+string Inventory::get_spell_type(int i) { return spell_list[i].get_type(); }

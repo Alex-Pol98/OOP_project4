@@ -77,6 +77,7 @@ string Potion::get_type() { return type; }
 string Potion::get_name() { return name; }
 int Potion::get_price() { return price; }
 int Potion::get_minlvl() { return min_lvl; }
+int Potion::get_power() { return power; }
 
 void Potion::print_info()
 {

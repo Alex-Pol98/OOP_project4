@@ -63,32 +63,32 @@ void Buff_list::empty_buffs()
 	agility_buffs.clear();
 }
 
-int Buff_list::get_all_dmg()
+double Buff_list::get_all_dmg()
 {
-	int dmg = 0;
+	double dmg = 1;
 	for (int i = 0; i < damage_buffs.size(); i++)
 	{
-		dmg = dmg + damage_buffs[i].get_percentage();
+		dmg = dmg + damage_buffs[i].get_percentage()*0.01;
 	}
 	return dmg;
 }
 
-int Buff_list::get_all_def()
+double Buff_list::get_all_def()
 {
-	int def = 0;
+	double def = 1;
 	for (int i = 0; i < defence_buffs.size(); i++)
 	{
-		def = def + defence_buffs[i].get_percentage();
+		def = def + defence_buffs[i].get_percentage()*0.01;
 	}
 	return def;
 }
 
-int Buff_list::get_all_agi()
+double Buff_list::get_all_agi()
 {
-	int agi = 0;
+	double agi = 1;
 	for (int i = 0; i < agility_buffs.size(); i++)
 	{
-		agi = agi + agility_buffs[i].get_percentage();
+		agi = agi + agility_buffs[i].get_percentage()*0.01;
 	}
 	return agi;
 }

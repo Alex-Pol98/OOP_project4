@@ -22,6 +22,7 @@ public:
 	virtual int get_minlvl() = 0;
 };
 
+
 class Weapon : public Item
 {
 protected:
@@ -38,6 +39,7 @@ public:
 	void print_info();
 };
 
+
 class Armor : public Item
 {
 protected:
@@ -52,6 +54,7 @@ public:
 	void print_info();
 };
 
+
 class Potion :public Item
 {
 protected:
@@ -61,6 +64,7 @@ public:
 	Potion(string nm, int pr, int mlvl, string tp, int pow);
 	string get_type();
 	string get_name();
+	int get_power();
 	int get_price();
 	int get_minlvl();
 	void print_info();

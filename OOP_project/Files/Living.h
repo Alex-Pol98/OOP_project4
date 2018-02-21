@@ -23,6 +23,8 @@ public:
 		cout << "I just created a Living "<< endl;
 	}
 	void set_health(int h);
+	int get_level();
+	int get_health();
 };
 
 
@@ -39,9 +41,9 @@ protected:
 	int exp_req;
 	Armor* armor;
 	Weapon* weapon;
-	Buff_list buffs;
 public:
 	Inventory inv;
+	Buff_list buffs;
 public:
 	Hero(int h, int mag, int str, int dex, int agi) :Living(h)
 	{
@@ -75,6 +77,12 @@ public:
 	void equip_weapon(int no);
 	void equip_armor(int no);
 
+	virtual void restore_health(int value) { cout << "BAD ACCESS!" << endl; };
+	virtual void restore_magicpower(int value) { cout << "BAD ACCESS!" << endl; };
+
+	virtual void sub_magicpower(int value){cout << "BAD ACCESS!";}
+
+
 	void addMoney(int mon);
 	void subMoney(int mon);
 	void tossArmor();
@@ -103,6 +111,9 @@ public:
 		c_agility = agility;
 	}
 	void check_levelup();
+	void sub_magicpower(int value);
+	void restore_health(int value);
+	void restore_magicpower(int value);
 };
 
 class Sorcerer :public Hero
@@ -124,6 +135,9 @@ public:
 		c_agility = agility;
 	}
 	void check_levelup();
+	void sub_magicpower(int value);
+	void restore_health(int value);
+	void restore_magicpower(int value);
 };
 
 class Paladin :public Hero
@@ -145,6 +159,9 @@ public:
 		c_agility = agility;
 	}
 	void check_levelup();
+	void sub_magicpower(int value);
+	void restore_health(int value);
+	void restore_magicpower(int value);
 };
 
 
@@ -156,8 +173,12 @@ protected:
 	int defence;
 	int agility;
 public:
+	Buff_list buffs;
+public:
 	Monster(int lvl_input) :Living(100, lvl_input) {}
 
+	virtual void receive_damage(int dmg) { cout << "BAD ACCESS!" << endl; };
+	virtual int get_c_health() { cout << "BAD ACCESS!" << endl; return 0; };
 	int get_damage();
 	int get_defence();
 	int get_agility();
@@ -166,6 +187,7 @@ public:
 	void set_defence(int def);
 	void set_agility(int agi);
 	void print_stats();
+	virtual void print_data() { ; }
 };
 
 class Dragon :public Monster
@@ -193,11 +215,13 @@ public:
 	int get_c_damage();
 	int get_c_agility();
 	int get_c_defence();
+	void print_data();
 
 	void set_c_health(int h);
 	void set_c_damage(int dmg);
 	void set_c_defence(int def);
 	void set_c_agility(int agi);
+	void receive_damage(int dmg);
 };
 
 class Exoskeleton : public Monster
@@ -225,11 +249,14 @@ public:
 	int get_c_damage();
 	int get_c_agility();
 	int get_c_defence();
+	void print_data();
 
 	void set_c_health(int h);
 	void set_c_damage(int dmg);
 	void set_c_defence(int def);
 	void set_c_agility(int agi);
+
+	void receive_damage(int dmg);
 };
 
 class Spirit :public Monster
@@ -257,11 +284,14 @@ public:
 	int get_c_damage();
 	int get_c_agility();
 	int get_c_defence();
+	void print_data();
 
 	void set_c_health(int h);
 	void set_c_damage(int dmg);
 	void set_c_defence(int def);
 	void set_c_agility(int agi);
+
+	void receive_damage(int dmg);
 };
 
 #endif //LIVING

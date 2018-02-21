@@ -20,7 +20,7 @@ public:
 	void move_buffs();
 	void check_buffs();
 	void empty_buffs();
-	int get_all_dmg();
-	int get_all_def();
-	int get_all_agi();
+	double get_all_dmg();
+	double get_all_def();
+	double get_all_agi();
 };

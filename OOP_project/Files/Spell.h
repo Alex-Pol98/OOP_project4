@@ -23,7 +23,7 @@ public:
 	string get_name();
 	int get_price();
 	int get_minlvl();
-	double get_damage();
+	int get_damage();
 	int get_manareq();
 	string get_type(); /*Types: Fire,Ice,Lighting*/
 	void print_info();

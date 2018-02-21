@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "Living.h"
+#include <stdlib.h>
+#include <time.h>
 
 
 using namespace std;
@@ -8,6 +10,8 @@ using namespace std;
 /*Living functions*/
 
 void Living::set_health(int h) { health = h; }
+int Living::get_health() { return health; }
+int Living::get_level() { return lvl; }
 
 
 /*Hero functions*/
@@ -207,6 +211,30 @@ void Warrior::check_levelup()
 	}
 }
 
+void Warrior::sub_magicpower(int value)
+{
+	c_magicpower = c_magicpower - value;
+}
+
+void Warrior::restore_health(int value)
+{
+	c_health = c_health + value;
+	if (c_health > health)
+	{
+		c_health = health;
+	}
+	cout << "Health restored!" << endl;
+}
+
+void Warrior::restore_magicpower(int value)
+{
+	c_magicpower = c_magicpower + value;
+	if (c_magicpower > magic_power)
+	{
+		c_magicpower = magic_power;
+	}
+	cout << "Magic power restored!" << endl;
+}
 
 
 /*Sorcerer functions*/
@@ -225,6 +253,31 @@ void Sorcerer::check_levelup()
 	}
 }
 
+void Sorcerer::sub_magicpower(int value)
+{
+	c_magicpower = c_magicpower - value;
+}
+
+void Sorcerer::restore_health(int value)
+{
+	c_health = c_health + value;
+	if (c_health > health)
+	{
+		c_health = health;
+	}
+	cout << "Health restored!" << endl;
+}
+
+void Sorcerer::restore_magicpower(int value)
+{
+	c_magicpower = c_magicpower + value;
+	if (c_magicpower > magic_power)
+	{
+		c_magicpower = magic_power;
+	}
+	cout << "Magic power restored!" << endl;
+}
+
 
 /*Paladin functions*/
 void Paladin::check_levelup()
@@ -240,6 +293,31 @@ void Paladin::check_levelup()
 		health = +60;
 		magic_power = +25;
 	}
+}
+
+void Paladin::sub_magicpower(int value)
+{
+	c_magicpower = c_magicpower - value;
+}
+
+void Paladin::restore_health(int value)
+{
+	c_health = c_health + value;
+	if (c_health > health)
+	{
+		c_health = health;
+	}
+	cout << "Health restored!" << endl;
+}
+
+void Paladin::restore_magicpower(int value)
+{
+	c_magicpower = c_magicpower + value;
+	if (c_magicpower > magic_power)
+	{
+		c_magicpower = magic_power;
+	}
+	cout << "Magic power restored!" << endl;
 }
 
 
@@ -273,7 +351,30 @@ void Dragon::set_c_damage(int dmg) { c_damage = dmg; }
 void Dragon::set_c_defence(int def) { c_defence = def; }
 void Dragon::set_c_agility(int agi) { c_agility = agi; }
 
+void Dragon::print_data()
+{
+	cout << "Type: Dragon__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
+}
 
+void Dragon::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 /(defence*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Dragon died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Dragon evaded the attack!" << endl;
+	}
+}
 
 /*Exoskeleton functions*/
 int Exoskeleton::get_c_health() { return c_health; }
@@ -285,6 +386,31 @@ void Exoskeleton::set_c_health(int h) { c_health = h; }
 void Exoskeleton::set_c_damage(int dmg) { c_damage = dmg; }
 void Exoskeleton::set_c_defence(int def) { c_defence = def; }
 void Exoskeleton::set_c_agility(int agi) { c_agility = agi; }
+
+void  Exoskeleton::print_data()
+{
+	cout << "Type: Exoskeleton__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
+}
+
+void Exoskeleton::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (defence*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Exoskeleton died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Exoskeleton evaded the attack!" << endl;
+	}
+}
 
 
 
@@ -298,3 +424,28 @@ void Spirit::set_c_health(int h) { c_health = h; }
 void Spirit::set_c_damage(int dmg) { c_damage = dmg; }
 void Spirit::set_c_defence(int def) { c_defence = def; }
 void Spirit::set_c_agility(int agi) { c_agility = agi; }
+
+void Spirit::print_data()
+{
+	cout << "Type: Spirit__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
+}
+
+void Spirit::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (defence*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Spirit died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Spirit evaded the attack!" << endl;
+	}
+}

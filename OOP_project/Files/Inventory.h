@@ -40,6 +40,23 @@ public:
 	void print_spells();
 	void print_potions();
 	void print_all();
+
+	int get_spell_list_size();
+	int get_weapon_list_size();
+	int get_armor_list_size();
+	int get_potion_list_size();
+
+	bool is_spell_list_empty();
+	bool is_armor_list_empty();
+	bool is_weapon_list_empty();
+	bool is_potion_list_empty();
+
+	string get_potion_type(int i);
+	int get_potion_power(int i);
+
+	int get_spell_manareq(int i);
+	int get_spell_damage(int i);
+	string get_spell_type(int i);
 };
 
 #endif //INVENTORY
