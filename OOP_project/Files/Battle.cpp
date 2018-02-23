@@ -152,6 +152,7 @@ void battle_procedure(Hero* Heroes[3])
 	bool flag=0;
 	int choice;
 	int ct = 0;
+	bool done_turn = 0;
 	int exp_sum;
 
 	Monster* Monsters[4];
@@ -164,151 +165,161 @@ void battle_procedure(Hero* Heroes[3])
 		cout << "{ Heroes turn }" << endl;
 		for (int i = 0; i < 3; i++)
 		{
-			if (Heroes[i] != NULL && Heroes[i]->get_chealth()!=0) //If hero exists and is not dead
+			done_turn = 0;
+			while (done_turn == 0 && Heroes[i] != NULL && Heroes[i]->get_chealth() != 0 && flag == 0)
 			{
-				print_fightmenu(i);
-				cin >> choice;
-				switch (choice)
-				{
-				case 1: //Attack a monster
-					int damage, mchoice;
-					damage = (Heroes[i]->getEquippedWeapon()->get_damage() + Heroes[i]->get_strength() / 4)*Heroes[i]->buffs.get_all_dmg();
-					print_monsters_position(Monsters);
-					cout << "Select the monster position to attack: ";
-					cin >> mchoice;
-					cout << endl;
-					if (mchoice > 3 || Monsters[mchoice] == NULL)
+					print_fightmenu(i);
+					cin >> choice;
+					switch (choice)
 					{
-						cout << "Bad input!" << endl;
-						break;
-					}
-					Monsters[mchoice]->receive_damage(damage);
-					if (Monsters[mchoice]->get_c_health() == 0)
-					{
-						delete Monsters[mchoice];
-						Monsters[mchoice] = NULL;
-					}
-					else
-					{
-						cout << "Monster remaining health= " << Monsters[mchoice]->get_c_health() << endl;
-					}
-					break;
-				case 2: //Use a spell
-					if (Heroes[i]->inv.is_spell_list_empty() == true)
-					{
-						cout << "The spell list is empty!" << endl;
-					}
-					else
-					{
-						int schoice;
-						Heroes[i]->inv.print_spells();
-						cout << "Input the number of the spell to use: ";
-						cin >> schoice;
+					case 1: //Attack a monster
+						int damage, mchoice;
+						damage = (Heroes[i]->getEquippedWeapon()->get_damage() + Heroes[i]->get_strength() / 4)*Heroes[i]->buffs.get_all_dmg();
+						print_monsters_position(Monsters);
+						cout << "Select the monster position to attack: ";
+						cin >> mchoice;
 						cout << endl;
-						if (schoice > Heroes[i]->inv.get_spell_list_size() || schoice < 1)
+						if (mchoice > 3 || Monsters[mchoice] == NULL)
 						{
 							cout << "Bad input!" << endl;
+							break;
+						}
+						done_turn = 1;
+						Monsters[mchoice]->receive_damage(damage);
+						if (Monsters[mchoice]->get_c_health() == 0)
+						{
+							delete Monsters[mchoice];
+							Monsters[mchoice] = NULL;
 						}
 						else
 						{
-							schoice--;
-							if (Heroes[i]->inv.get_spell_manareq(schoice) > Heroes[i]->get_cmagicpower())
+							cout << "Monster remaining health= " << Monsters[mchoice]->get_c_health() << endl;
+						}
+						break;
+					case 2: //Use a spell
+						if (Heroes[i]->inv.is_spell_list_empty() == true)
+						{
+							cout << "The spell list is empty!" << endl;
+						}
+						else
+						{
+							int schoice;
+							Heroes[i]->inv.print_spells();
+							cout << "Input the number of the spell to use: ";
+							cin >> schoice;
+							cout << endl;
+							if (schoice > Heroes[i]->inv.get_spell_list_size() || schoice < 1)
 							{
-								cout << "Not enough mana!" << endl;
+								cout << "Bad input!" << endl;
 							}
 							else
 							{
-								int damage, mchoice;
-								Heroes[i]->sub_magicpower(Heroes[i]->inv.get_spell_manareq(schoice));
-								damage = (Heroes[i]->inv.get_spell_damage(schoice) + (Heroes[i]->get_dexterity() / 3))*Heroes[i]->buffs.get_all_dmg();
-								print_monsters_position(Monsters);
-								cout << "Select the monster position to use the spell: ";
-								cin >> mchoice;
-								cout << endl;
-								if (mchoice > 3 || Monsters[mchoice] == NULL)
+								schoice--;
+								if (Heroes[i]->inv.get_spell_manareq(schoice) > Heroes[i]->get_cmagicpower())
 								{
-									cout << "Bad input!" << endl;
-									break;
-								}
-								Monsters[mchoice]->receive_damage(damage);
-								if (Monsters[mchoice]->get_c_health() == 0)
-								{
-									delete Monsters[mchoice];
-									Monsters[mchoice] = NULL;
+									cout << "Not enough mana!" << endl;
 								}
 								else
 								{
-									if (Heroes[i]->inv.get_spell_type(schoice) == "Fire")
+									int damage, mchoice;
+									Heroes[i]->sub_magicpower(Heroes[i]->inv.get_spell_manareq(schoice));
+									damage = (Heroes[i]->inv.get_spell_damage(schoice) + (Heroes[i]->get_dexterity() / 3))*Heroes[i]->buffs.get_all_dmg();
+									print_monsters_position(Monsters);
+									cout << "Select the monster position to use the spell: ";
+									cin >> mchoice;
+									cout << endl;
+									if (mchoice > 3 || Monsters[mchoice] == NULL)
 									{
-										Monsters[mchoice]->buffs.add_dmgbuff(-5, 3);
+										cout << "Bad input!" << endl;
+										break;
 									}
-									else if (Heroes[i]->inv.get_spell_type(schoice) == "Ice")
+									done_turn = 1;
+									Monsters[mchoice]->receive_damage(damage);
+									if (Monsters[mchoice]->get_c_health() == 0)
 									{
-										Monsters[mchoice]->buffs.add_defbuff(-5, 3);
+										delete Monsters[mchoice];
+										Monsters[mchoice] = NULL;
 									}
 									else
 									{
-										Monsters[mchoice]->buffs.add_agibuff(-5, 3);
+										if (Heroes[i]->inv.get_spell_type(schoice) == "Fire")
+										{
+											Monsters[mchoice]->buffs.add_dmgbuff(-5, 3);
+										}
+										else if (Heroes[i]->inv.get_spell_type(schoice) == "Ice")
+										{
+											Monsters[mchoice]->buffs.add_defbuff(-5, 3);
+										}
+										else
+										{
+											Monsters[mchoice]->buffs.add_agibuff(-5, 3);
+										}
 									}
 								}
 							}
 						}
-					}
-					break;
-				case 3:
-					if (Heroes[i]->inv.is_potion_list_empty() == true)
-					{
-						cout << "Potion list is empty!" << endl;
-					}
-					else
-					{
-						int pchoice;
-						Heroes[i]->inv.print_potions();
-						cout << "Input the number of the potion to use: ";
-						cin >> pchoice;
-						cout << endl;
-						if (pchoice < 1 || pchoice > Heroes[i]->inv.get_potion_list_size())
+						break;
+					case 3:
+						if (Heroes[i]->inv.is_potion_list_empty() == true)
 						{
-							cout << "Bad input!!!" << endl;
-							break;
+							cout << "Potion list is empty!" << endl;
 						}
 						else
 						{
-							pchoice--;
-							cout << "got here pchoice=" << pchoice << endl;
-							if (Heroes[i]->inv.get_potion_type(pchoice) == "Health")
+							int pchoice;
+							Heroes[i]->inv.print_potions();
+							cout << "Input the number of the potion to use: ";
+							cin >> pchoice;
+							cout << endl;
+							if (pchoice < 1 || pchoice > Heroes[i]->inv.get_potion_list_size())
 							{
-								Heroes[i]->restore_health(Heroes[i]->inv.get_potion_power(pchoice));
-							}
-							else if (Heroes[i]->inv.get_potion_type(pchoice) == "Magic")
-							{
-								Heroes[i]->restore_magicpower(Heroes[i]->inv.get_potion_power(pchoice));
-							}
-							else if (Heroes[i]->inv.get_potion_type(pchoice) == "Damage")
-							{
-								Heroes[i]->buffs.add_dmgbuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
-							}
-							else if (Heroes[i]->inv.get_potion_type(pchoice) == "Defence")
-							{
-								Heroes[i]->buffs.add_defbuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
+								cout << "Bad input!!!" << endl;
+								break;
 							}
 							else
 							{
-								Heroes[i]->buffs.add_agibuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
+								done_turn = 1;
+								pchoice--;
+								if (Heroes[i]->inv.get_potion_type(pchoice) == "Health")
+								{
+									Heroes[i]->restore_health(Heroes[i]->inv.get_potion_power(pchoice));
+								}
+								else if (Heroes[i]->inv.get_potion_type(pchoice) == "Magic")
+								{
+									Heroes[i]->restore_magicpower(Heroes[i]->inv.get_potion_power(pchoice));
+								}
+								else if (Heroes[i]->inv.get_potion_type(pchoice) == "Damage")
+								{
+									Heroes[i]->buffs.add_dmgbuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
+								}
+								else if (Heroes[i]->inv.get_potion_type(pchoice) == "Defence")
+								{
+									Heroes[i]->buffs.add_defbuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
+								}
+								else
+								{
+									Heroes[i]->buffs.add_agibuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
+								}
+								Heroes[i]->inv.remove_potion(pchoice + 1);
 							}
-							Heroes[i]->inv.remove_potion(pchoice+1);
 						}
+						break;
+					case 4:
+						//equip weapon
+					case 5:
+						//equip armor
+					default:
+						cout << "Bad input" << endl;
+						break;
 					}
-					break;
-				case 4:
-					//equip weapon
-				case 5:
-					//equip armor
-				default:
-					cout << "Bad input losing turn" << endl;
-					break;
-				}
-				update_buffs(Heroes, Monsters);
+					if (done_turn == 1)
+					{
+						update_buffs(Heroes, Monsters);
+					}
+					if (all_dead(Monsters) == true)
+					{
+						flag = 1;
+					}
 			}
 			cout << endl;
 		}
