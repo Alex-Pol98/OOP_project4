@@ -269,19 +269,20 @@ void battle_procedure(Hero* Heroes[3])
 						cout << endl;
 						if (pchoice < 1 || pchoice > Heroes[i]->inv.get_potion_list_size())
 						{
-							cout << "Bad input!" << endl;
+							cout << "Bad input!!!" << endl;
 							break;
 						}
 						else
 						{
 							pchoice--;
+							cout << "got here pchoice=" << pchoice << endl;
 							if (Heroes[i]->inv.get_potion_type(pchoice) == "Health")
 							{
-								Heroes[i]->restore_health(Heroes[i]->inv.get_potion_power(i));
+								Heroes[i]->restore_health(Heroes[i]->inv.get_potion_power(pchoice));
 							}
 							else if (Heroes[i]->inv.get_potion_type(pchoice) == "Magic")
 							{
-								Heroes[i]->restore_magicpower(Heroes[i]->inv.get_potion_power(i));
+								Heroes[i]->restore_magicpower(Heroes[i]->inv.get_potion_power(pchoice));
 							}
 							else if (Heroes[i]->inv.get_potion_type(pchoice) == "Damage")
 							{
@@ -295,8 +296,10 @@ void battle_procedure(Hero* Heroes[3])
 							{
 								Heroes[i]->buffs.add_agibuff(Heroes[i]->inv.get_potion_power(pchoice), 3);
 							}
+							Heroes[i]->inv.remove_potion(pchoice+1);
 						}
 					}
+					break;
 				case 4:
 					//equip weapon
 				case 5:
