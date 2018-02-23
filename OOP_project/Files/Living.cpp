@@ -211,6 +211,9 @@ void Warrior::check_levelup()
 	}
 }
 
+int Warrior::get_chealth() { return c_health; }
+int Warrior::get_cmagicpower() { return c_magicpower; }
+
 void Warrior::sub_magicpower(int value)
 {
 	c_magicpower = c_magicpower - value;
@@ -236,6 +239,25 @@ void Warrior::restore_magicpower(int value)
 	cout << "Magic power restored!" << endl;
 }
 
+void Warrior::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Warrior died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Warrior evaded the attack!" << endl;
+	}
+}
 
 /*Sorcerer functions*/
 void Sorcerer::check_levelup()
@@ -250,6 +272,29 @@ void Sorcerer::check_levelup()
 		agility = +7;
 		health = +30;
 		magic_power = +35;
+	}
+}
+
+int Sorcerer::get_chealth() { return c_health; }
+int Sorcerer::get_cmagicpower() { return c_magicpower; }
+
+void Sorcerer::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Sorcerer died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Sorcerer evaded the attack!" << endl;
 	}
 }
 
@@ -294,6 +339,29 @@ void Paladin::check_levelup()
 		magic_power = +25;
 	}
 }
+
+void Paladin::receive_damage(int dmg)
+{
+	srand(time(NULL));
+	int evade;
+	evade = rand() % 301;
+	if (evade < (300 - (agility*buffs.get_all_agi())))
+	{
+		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+		if (c_health <= 0)
+		{
+			c_health = 0;
+			cout << "Paladin died!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Paladin evaded the attack!" << endl;
+	}
+}
+
+int Paladin::get_chealth() { return c_health; }
+int Paladin::get_cmagicpower() { return c_magicpower; }
 
 void Paladin::sub_magicpower(int value)
 {
