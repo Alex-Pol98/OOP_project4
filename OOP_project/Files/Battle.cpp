@@ -305,11 +305,10 @@ void battle_procedure(Hero* Heroes[3])
 					cout << "Bad input losing turn" << endl;
 					break;
 				}
+				update_buffs(Heroes, Monsters);
 			}
-			update_buffs(Heroes, Monsters);
 			cout << endl;
 		}
-		update_buffs(Heroes, Monsters);
 		cout << endl;
 		if (all_dead(Monsters) == true)
 		{
@@ -332,6 +331,7 @@ void battle_procedure(Hero* Heroes[3])
 					cout << "A Monster will attack the #" << h_att + 1 << " Hero!" << endl;
 					Heroes[h_att]->receive_damage(Monsters[i]->get_damage()*Monsters[i]->buffs.get_all_dmg());
 					cout << "Health remaining= " << Heroes[h_att]->get_chealth() << endl;
+					update_buffs(Heroes, Monsters);
 					if (all_dead(Heroes) == true)
 					{
 						cout << "GAME OVER";
