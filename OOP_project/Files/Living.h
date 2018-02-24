@@ -65,15 +65,10 @@ public:
 	int get_money();
 	int get_experience();
 	int get_expreq();
-	void print_stats();
+	virtual void print_stats();
 
-	void sell_weapon(int no);
-	void sell_armor(int no);
-	void sell_potion(int no);
-	void sell_spell(int no);
-	void sell_equipedweapon();
-	void sell_equipedarmor();
-
+	void equip_armor();
+	void equip_weapon();
 	void equip_weapon(int no);
 	void equip_armor(int no);
 
@@ -83,6 +78,7 @@ public:
 	virtual int get_chealth() { cout << "BAD ACCESS!" << endl; return 0; }
 	virtual int get_cmagicpower() { cout << "BAD ACCESS!" << endl; return 0; }
 	virtual void sub_magicpower(int value){cout << "BAD ACCESS!";}
+	void addExperience(int value);                                  // Loukas
 
 
 	void addMoney(int mon);
@@ -119,6 +115,7 @@ public:
 	void receive_damage(int dmg);
 	int get_chealth();
 	int get_cmagicpower();
+	void print_stats();
 };
 
 class Sorcerer :public Hero
@@ -146,6 +143,7 @@ public:
 	int get_chealth();
 	void receive_damage(int dmg);
 	int get_cmagicpower();
+	void print_stats();
 };
 
 class Paladin :public Hero
@@ -173,6 +171,7 @@ public:
 	int get_chealth();
 	void receive_damage(int dmg);
 	int get_cmagicpower();
+	void print_stats();
 };
 
 

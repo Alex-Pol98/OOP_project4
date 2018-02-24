@@ -17,7 +17,6 @@ int Living::get_level() { return lvl; }
 /*Hero functions*/
 void Hero::print_stats()
 {
-	cout << "Hero statistics:"<< endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Magic power= " << magic_power << endl;
@@ -26,24 +25,26 @@ void Hero::print_stats()
 	cout << "Agility= " << agility << endl;
 	cout << "Money= " << money << endl;
 	cout << "Experience= " << experience << endl;
-	cout << "Exprerience required= " << exp_req << endl;
+	cout << "Experience required= " << exp_req << endl;
 
 	if (weapon != NULL)
 	{
-		cout << "Equiped weapon: " << weapon->get_name() << endl;
+		cout << "Equipped weapon: " << weapon->get_name() << endl;
 	}
 	else
 	{
-		cout << "No equiped weapon" << endl;
+		cout << "No equipped weapon" << endl;
 	}
 	if (armor != NULL)
 	{
-		cout << "Equiped armor: " << armor->get_name() << endl;
+		cout << "Equipped armor: " << armor->get_name() << endl;
 	}
 	else
 	{
-		cout << "No equiped armor" << endl;
+		cout << "No equipped armor" << endl;
 	}
+
+	cout << endl;
 }
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
@@ -52,6 +53,23 @@ int Hero::get_agility() { return agility; }
 int Hero::get_money() { return money; }
 int Hero::get_experience() { return experience; }
 int Hero::get_expreq() { return exp_req; }
+
+void Hero::equip_weapon()
+{
+    int option;
+
+    inv.print_weapons();
+    cout << "Choose the weapon you want to equip:" << endl;
+    cin >> option;
+
+    while(option > inv.weapon_list.size() || option < 0)
+    {
+        cout << "Invalid Input\nPlease Choose again:" << endl;
+        cin >>option;
+    }
+
+    equip_weapon(option);
+}
 
 void Hero::equip_weapon(int no)
 {
@@ -77,6 +95,23 @@ void Hero::equip_weapon(int no)
 	{
 		cout << "INVALID INPUT" << endl;
 	}
+}
+
+void Hero::equip_armor()
+{
+    int option;
+
+    inv.print_armors();
+    cout << "Choose the armor you want to equip:" << endl;
+    cin >> option;
+
+    while(option > inv.armor_list.size() || option < 0)
+    {
+        cout << "Invalid Input\nPlease Choose again:" << endl;
+        cin >>option;
+    }
+
+    equip_armor(option);
 }
 
 void Hero::equip_armor(int no)
@@ -105,78 +140,6 @@ void Hero::equip_armor(int no)
 	}
 }
 
-void Hero::sell_equipedweapon()
-{
-	money = +weapon->get_price()/2;
-	delete weapon;
-	weapon = NULL;
-	cout << "Equiped weapon sold" << endl;
-}
-
-void Hero::sell_equipedarmor()
-{
-	money = +armor->get_price() / 2;
-	delete armor;
-	armor = NULL;
-	cout << "Equiped armor sold" << endl;
-}
-
-void Hero::sell_weapon(int no)
-{
-	if (inv.weapon_list.size() >= no)
-	{
-		money = money +(inv.weapon_list[no - 1].get_price()/ 2);
-		inv.remove_weapon(no);
-		cout << "Weapon sold" << endl;
-	}
-	else
-	{
-		cout << "INVALID INPUT" << endl;
-	}
-}
-
-void Hero::sell_armor(int no)
-{
-	if (inv.armor_list.size() >= no)
-	{
-		money = money + (inv.armor_list[no - 1].get_price() / 2);
-		inv.remove_armor(no);
-		cout << "Armor sold" << endl;
-	}
-	else
-	{
-		cout << "INVALID INPUT" << endl;
-	}
-}
-
-void Hero::sell_potion(int no)
-{
-	if (inv.potion_list.size() >= no)
-	{
-		money = money + (inv.potion_list[no - 1].get_price() / 2);
-		inv.remove_potion(no);
-		cout << "Potion sold" << endl;
-	}
-	else
-	{
-		cout << "INVALID INPUT" << endl;
-	}
-}
-
-void Hero::sell_spell(int no)
-{
-	if (inv.spell_list.size() >= no)
-	{
-		money = money + (inv.spell_list[no - 1].get_price() / 2);
-		inv.remove_spell(no);
-		cout << "Spell sold" << endl;
-	}
-	else
-	{
-		cout << "INVALID INPUT" << endl;
-	}
-}
-
 void Hero::addMoney(int mon) { money = money + mon; }
 void Hero::subMoney(int mon) { money = money - mon; }
 
@@ -192,10 +155,15 @@ void Hero::tossWeapon()
 	weapon = NULL;
 }
 
+void Hero::addExperience(int value)                 // Loukas
+{
+    experience += value;
+}
+
 Armor* Hero::getEquippedArmor() { return this->armor; }
 Weapon* Hero::getEquippedWeapon() { return this->weapon; }
 
-/*Warrior functions*/	
+/*Warrior functions*/
 void Warrior::check_levelup()
 {
 	if (experience >= exp_req)
@@ -203,11 +171,13 @@ void Warrior::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +10;
-		dexterity = +5;
-		agility = +7;
-		health = +50;
+		strength += +10;
+		dexterity += +5;
+		agility += +7;
+		health += +50;
+		c_health += +50;
 		magic_power = +15;
+		cout << "Warrior leveled up!" << endl;
 	}
 }
 
@@ -241,12 +211,16 @@ void Warrior::restore_magicpower(int value)
 
 void Warrior::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -259,6 +233,14 @@ void Warrior::receive_damage(int dmg)
 	}
 }
 
+void Warrior::print_stats()
+{
+	cout << "\tWarrior stats:" << endl;
+	Hero:print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
+}
+
 /*Sorcerer functions*/
 void Sorcerer::check_levelup()
 {
@@ -267,11 +249,13 @@ void Sorcerer::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +5;
-		dexterity = +10;
-		agility = +7;
-		health = +30;
-		magic_power = +35;
+		strength += +5;
+		dexterity += +10;
+		agility += +7;
+		health += +30;
+		c_health += 30;
+		magic_power += +35;
+		cout << "Sorcerer leveled up!" << endl;
 	}
 }
 
@@ -280,12 +264,16 @@ int Sorcerer::get_cmagicpower() { return c_magicpower; }
 
 void Sorcerer::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+		if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -324,6 +312,14 @@ void Sorcerer::restore_magicpower(int value)
 }
 
 
+void Sorcerer::print_stats()
+{
+	cout << "\tSorcerer stats:" << endl;
+	Hero:print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
+}
+
 /*Paladin functions*/
 void Paladin::check_levelup()
 {
@@ -332,22 +328,28 @@ void Paladin::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +10;
-		dexterity = +7;
-		agility = +5;
-		health = +60;
-		magic_power = +25;
+		strength += +10;
+		dexterity += +7;
+		agility += +5;
+		health += +60;
+		c_health += 60;
+		magic_power += +25;
+		cout << "Paladin leveled up!" << endl;
 	}
 }
 
 void Paladin::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -389,22 +391,31 @@ void Paladin::restore_magicpower(int value)
 }
 
 
+void Paladin::print_stats()
+{
+	cout << "\tPaladin stats:" << endl;
+	Hero:print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
+}
+
+
 /*Monster functions*/
 int Monster::get_damage() { return damage; }
 int Monster::get_defence() { return defence; }
 int Monster::get_agility() { return agility; }
 
 void Monster::set_damage(int dmg) { damage = dmg; }
-void Monster::set_defence(int def) { defence = def; }	
+void Monster::set_defence(int def) { defence = def; }
 void Monster::set_agility(int agi) { agility = agi; }
 void Monster::print_stats()
 {
-	cout << "Monster statistics: " << endl;
+	cout << "\tMonster statistics: " << endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Damage= " << damage << endl;
 	cout << "Defence= " << defence << endl;
-	cout << "Agility= " << agility << endl;
+	cout << "Agility= " << agility << endl << endl;
 }
 
 
@@ -426,7 +437,7 @@ void Dragon::print_data()
 
 void Dragon::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
@@ -462,7 +473,7 @@ void  Exoskeleton::print_data()
 
 void Exoskeleton::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
@@ -500,7 +511,7 @@ void Spirit::print_data()
 
 void Spirit::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
