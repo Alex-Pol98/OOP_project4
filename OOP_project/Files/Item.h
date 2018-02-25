@@ -58,8 +58,8 @@ public:
 class Potion :public Item
 {
 protected:
-	string type; /*Type of stat*/
-	int power;
+	string type; /*Type of stat to increase (Health-Magic-Damage-Defence-Agility)*/
+	int power;   // Determines how much will it increase its type
 public:
 	Potion(string nm, int pr, int mlvl, string tp, int pow);
 	string get_type();

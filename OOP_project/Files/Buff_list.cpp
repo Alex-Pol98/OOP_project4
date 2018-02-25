@@ -16,17 +16,14 @@ void Buff_list::move_buffs()
 	for (int i = 0; i < damage_buffs.size() ; i++)
 	{
 		damage_buffs[i].move_turn();
-		cout << "1";
 	}
 	for (int i = 0; i < defence_buffs.size() ; i++)
 	{
 		defence_buffs[i].move_turn();
-		cout << "2";
 	}
 	for (int i = 0; i < agility_buffs.size() ; i++)
 	{
 		agility_buffs[i].move_turn();
-		cout << "3";
 	}
 	cout << "Buffs have been updated" << endl;
 }

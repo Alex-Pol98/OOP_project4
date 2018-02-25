@@ -17,6 +17,7 @@ int Living::get_level() { return lvl; }
 /*Hero functions*/
 void Hero::print_stats()
 {
+	cout << "Name: " << name << endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Magic power= " << magic_power << endl;
@@ -43,9 +44,8 @@ void Hero::print_stats()
 	{
 		cout << "No equipped armor" << endl;
 	}
-
-	cout << endl;
 }
+string Hero::get_name() { return name; }
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
 int Hero::get_dexterity() { return dexterity; }
@@ -59,6 +59,9 @@ void Hero::equip_weapon()
     int option;
 
     inv.print_weapons();
+    if(inv.weapon_list.size() == 0)
+        return;
+
     cout << "Choose the weapon you want to equip:" << endl;
     cin >> option;
 
@@ -73,7 +76,7 @@ void Hero::equip_weapon()
 
 void Hero::equip_weapon(int no)
 {
-	if (inv.weapon_list.size() >= no)
+	if (inv.weapon_list.size() >= no && no > 0)
 	{
 		if (weapon == NULL)
 		{
@@ -102,6 +105,9 @@ void Hero::equip_armor()
     int option;
 
     inv.print_armors();
+    if(inv.armor_list.size() == 0)
+        return;
+
     cout << "Choose the armor you want to equip:" << endl;
     cin >> option;
 
@@ -116,7 +122,7 @@ void Hero::equip_armor()
 
 void Hero::equip_armor(int no)
 {
-	if (inv.armor_list.size() >= no)
+	if (inv.armor_list.size() >= no && no > 0)
 	{
 		if (armor == NULL)
 		{
@@ -236,9 +242,10 @@ void Warrior::receive_damage(int dmg)
 void Warrior::print_stats()
 {
 	cout << "\tWarrior stats:" << endl;
-	Hero:print_stats();
+	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 /*Sorcerer functions*/
@@ -315,9 +322,10 @@ void Sorcerer::restore_magicpower(int value)
 void Sorcerer::print_stats()
 {
 	cout << "\tSorcerer stats:" << endl;
-	Hero:print_stats();
+	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 /*Paladin functions*/
@@ -394,9 +402,10 @@ void Paladin::restore_magicpower(int value)
 void Paladin::print_stats()
 {
 	cout << "\tPaladin stats:" << endl;
-	Hero:print_stats();
+	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 

@@ -20,7 +20,6 @@ public:
 	{
 		lvl = l;
 		health = h;
-		cout << "I just created a Living "<< endl;
 	}
 	void set_health(int h);
 	int get_level();
@@ -32,6 +31,7 @@ public:
 class Hero :public Living
 {
 protected:
+	string name;
 	int magic_power;
 	int strength;
 	int dexterity;
@@ -45,19 +45,21 @@ public:
 	Inventory inv;
 	Buff_list buffs;
 public:
-	Hero(int h, int mag, int str, int dex, int agi) :Living(h)
+	Hero(string nm, int h, int mag, int str, int dex, int agi) :Living(h)
 	{
+		name = nm;
 		magic_power = mag;
 		strength = str;
 		dexterity = dex;
 		agility = agi;
-		money = 0;
+		money = 500;
 		experience = 0;
 		exp_req = 1000;
 		armor = NULL;
 		weapon = NULL;
 	}
 	virtual void check_levelup() = 0;
+	string get_name();
 	int get_magicpower();
 	int get_strength();
 	int get_dexterity();
@@ -72,15 +74,16 @@ public:
 	void equip_weapon(int no);
 	void equip_armor(int no);
 
+	//These functions should not be accessed from a Hero class perspective
 	virtual void restore_health(int value) { cout << "BAD ACCESS!" << endl; };
 	virtual void restore_magicpower(int value) { cout << "BAD ACCESS!" << endl; }
 	virtual void receive_damage(int dmg) { cout << "BAD ACCESS!" << endl; }
 	virtual int get_chealth() { cout << "BAD ACCESS!" << endl; return 0; }
 	virtual int get_cmagicpower() { cout << "BAD ACCESS!" << endl; return 0; }
 	virtual void sub_magicpower(int value){cout << "BAD ACCESS!";}
-	void addExperience(int value);                                  // Loukas
 
 
+	void addExperience(int value);                                  
 	void addMoney(int mon);
 	void subMoney(int mon);
 	void tossArmor();
@@ -100,7 +103,7 @@ protected:
 	int c_agility;
 
 public:
-	Warrior(int h = 150, int mag = 100, int str = 60, int dex = 30, int agi = 45) : Hero(h, mag, str, dex, agi)
+	Warrior(string nm, int h = 150, int mag = 100, int str = 60, int dex = 30, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -128,7 +131,7 @@ protected:
 	int c_dexterity;
 	int c_agility;
 public:
-	Sorcerer(int h = 130, int mag = 250, int str = 30, int dex = 60, int agi = 45) : Hero(h, mag, str, dex, agi)
+	Sorcerer(string nm, int h = 130, int mag = 250, int str = 30, int dex = 60, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -156,7 +159,7 @@ protected:
 	int c_dexterity;
 	int c_agility;
 public:
-	Paladin(int h = 180, int mag = 140, int str = 60, int dex = 45, int agi = 30) : Hero(h, mag, str, dex, agi)
+	Paladin(string nm, int h = 180, int mag = 140, int str = 60, int dex = 45, int agi = 30) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -187,8 +190,10 @@ public:
 public:
 	Monster(int lvl_input) :Living(100, lvl_input) {}
 
+	//These functions should not be accessed from a Monster class perspective
 	virtual void receive_damage(int dmg) { cout << "BAD ACCESS!" << endl; };
 	virtual int get_c_health() { cout << "BAD ACCESS!" << endl; return 0; };
+
 	int get_damage();
 	int get_defence();
 	int get_agility();
@@ -208,7 +213,7 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Dragon(int lvl_input) :Monster(lvl_input)
+	Dragon(int lvl_input) :Monster(lvl_input) //The stats of a dragon depend on the level that has been inputed.
 	{
 		set_health(lvl_input * 15 + 50);
 		set_damage(20 + lvl_input * 10);
@@ -242,7 +247,7 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Exoskeleton(int lvl_input) :Monster(lvl_input)
+	Exoskeleton(int lvl_input) :Monster(lvl_input) //The stats of an Exoskeleton depend on the level that has been inputed.
 	{
 		set_health(lvl_input * 10 + 50);
 		set_damage(10 + lvl_input * 5);
@@ -277,7 +282,7 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Spirit(int lvl_input) :Monster(lvl_input)
+	Spirit(int lvl_input) :Monster(lvl_input) //The stats of a Spirit depend on the level that has been inputed.
 	{
 		set_health(lvl_input * 20 + 50);
 		set_damage(10 + lvl_input * 5);

@@ -21,7 +21,7 @@ void Inventory::remove_spell(int no)
 	else
 	{
 		spell_list.erase(spell_list.begin() + no - 1);
-		cout << "Spell erased" << endl;
+		//cout << "Spell erased" << endl;
 	}
 }
 void Inventory::remove_weapon(int no)
@@ -34,7 +34,7 @@ void Inventory::remove_weapon(int no)
 	{
 
 		weapon_list.erase(weapon_list.begin() + no - 1);
-		cout << "Weapon erased" << endl;
+		//cout << "Weapon erased" << endl;
 	}
 }
 void Inventory::remove_armor(int no)
@@ -46,7 +46,7 @@ void Inventory::remove_armor(int no)
 	else
 	{
 		armor_list.erase(armor_list.begin() + no - 1);
-		cout << "Armor erased" << endl;
+		//cout << "Armor erased" << endl;
 	}
 }
 void Inventory::remove_potion(int no)
@@ -58,21 +58,21 @@ void Inventory::remove_potion(int no)
 	else
 	{
 		potion_list.erase(potion_list.begin() + no - 1);
-		cout << "Potion erased" << endl;
+		//cout << "Potion erased" << endl;
 	}
 }
 
-Weapon Inventory::get_weapon(int no) 
-{ 
-		if (weapon_list.size() >= no) 
-	{ 
-		return weapon_list[no - 1]; 
-	} 
-	else 
-	{ 
-			cout << "ERROR OUT OF BOUNDS WEAPON_LIST" << endl; 
+Weapon Inventory::get_weapon(int no)
+{
+		if (weapon_list.size() >= no)
+	{
+		return weapon_list[no - 1];
+	}
+	else
+	{
+			cout << "ERROR OUT OF BOUNDS WEAPON_LIST" << endl;
 			assert(0);
-	} 
+	}
 }
 
 Armor Inventory::get_armor(int no)
@@ -91,6 +91,11 @@ Armor Inventory::get_armor(int no)
 
 void Inventory::print_spells()
 {
+	if(spell_list.size() == 0)
+    {
+        cout << "There are no Spells available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < spell_list.size(); i++)
 	{
 		cout << "Spell #" << i + 1 << ":" << endl;
@@ -100,6 +105,11 @@ void Inventory::print_spells()
 
 void Inventory::print_weapons()
 {
+    if(weapon_list.size() == 0)
+    {
+        cout << "There are no Weapons available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < weapon_list.size(); i++)
 	{
 		cout << "Weapon #" << i + 1 << ":" << endl;
@@ -109,6 +119,11 @@ void Inventory::print_weapons()
 
 void Inventory::print_armors()
 {
+	if(armor_list.size() == 0)
+    {
+        cout << "There are no Armors available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < armor_list.size(); i++)
 	{
 		cout << "Armor #" << i + 1 << ":" << endl;
@@ -118,6 +133,11 @@ void Inventory::print_armors()
 
 void Inventory::print_potions()
 {
+	if(potion_list.size() == 0)
+    {
+        cout << "There are no Potions available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < potion_list.size(); i++)
 	{
 		cout << "Potion #" << i + 1 << ":" << endl;
@@ -163,3 +183,8 @@ int Inventory::get_potion_power(int i) { return potion_list[i].get_power(); }
 int Inventory::get_spell_manareq(int i) { return spell_list[i].get_manareq(); }
 int Inventory::get_spell_damage(int i) { return spell_list[i].get_damage(); }
 string Inventory::get_spell_type(int i) { return spell_list[i].get_type(); }
+
+int Inventory::get_spell_price(int i) { return spell_list[i].get_price(); }     // Loukas
+int Inventory::get_weapon_price(int i) { return weapon_list[i].get_price(); }
+int Inventory::get_potion_price(int i) { return potion_list[i].get_price(); }
+int Inventory::get_armor_price(int i) { return armor_list[i].get_price(); }

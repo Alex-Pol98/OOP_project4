@@ -18,8 +18,8 @@ protected:
 	int damage;
 	int mana_req;
 public:
-	Spell(string nm, string tp, int pr, int mlvl, int dmg, int manr);
-	~Spell();
+	Spell(string nm, int pr, int mlvl, int dmg, int manr);
+	virtual ~Spell();
 	string get_name();
 	int get_price();
 	int get_minlvl();
@@ -27,6 +27,24 @@ public:
 	int get_manareq();
 	string get_type(); /*Types: Fire,Ice,Lighting*/
 	void print_info();
+};
+
+class FireSpell: public Spell
+{
+    public:
+        FireSpell(string, int, int, int, int);
+};
+
+class LightningSpell: public Spell
+{
+    public:
+        LightningSpell(string, int, int, int, int);
+};
+
+class IceSpell: public Spell
+{
+    public:
+        IceSpell(string, int, int, int, int);
 };
 
 #endif //SPELL
