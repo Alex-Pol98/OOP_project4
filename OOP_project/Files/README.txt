@@ -1,125 +1,19 @@
-г еяцасиа ейпомгхгйе апо тоус акенамдяо покувяомопоуко sdi1600138 йаи коуйа петеимаяг sdi1600134. о выяислос тгс еяцасиас ециме ыс енгс: лета апо суфгтгсг циа то сведиасло йаи то пыс ха цимеи то йахе ти тгс еяцасиас апожасистгйе о емас ма амакабеи тг дглиоуяциа окым тым йкасеым поу пеяицяажомтаи стгм ейжымгсг йаи о аккос то сведиасло тоу пкецлатос памы сто опоио ха йимоумтаи ои гяыес, емы г лавг ха цимотам апо йоимоу ле сумдуасло тым дуо укопоигсеым. ока та аявеиа евоум леса свокиа циа ма цимеи йатамогтос о йыдийас йахыс йаи енгцгсеис циа йапоиес паяадовес поу ецимам. ои пио сгламтийес апо аутес ха цяажтоум йаи еды. 
 
-* ема LIVING нейимаеи ле 100 HEALTH йаи 1 LEVEL
-
-* емас HERO нейимаеи ле 500 MONEY KAI 1000 EXPERIENCE ысте ма
-  амебеи кебек
-
-* ои HEROES KAI TA MONSTERS евоум йапоиа BUFFS та опоиа 
-  вягсилопоиоумтаи циа тис епидяасеис тым POTIONS KAI SPELLS
-
-* ENAс WARRIOR нейимаеи ле та енгс педиа: HEALTH
-  150, MAGIC_POWER 100, STRENGTH 60, DEXTERITY 30, AGILITY 45
-
-* циа то LEVEL_UP TOY WARRIOR евоуле 
-	STRENGTH +10, DEXTERITY +5, AGILITY, +7 HEALTH, C_HEALTH 	+ 50, MAGIC_POWER +15
-
-* емас SORCERER нейимаеи ле та енгс педиа: HEALTH
-  130, MAGIC_POWER 250, STRENGTH 30, DEXTERITY 60, AGILITY 45
-
-* циа то LEVEL_UP TOY SORCERER евоуле 
-	STRENGTH +5, DEXTERITY +10, AGILITY +7, HEALTH, C_HEALTH 	+ 30, MAGIC_POWER +35
-
-* емас PALADIN нейимаеи ле та енгс педиа: HEALTH
-  180, MAGIC_POWER 140, STRENGTH 60, DEXTERITY 45, AGILITY 30
-
-* циа то LEVEL_UP TOY PALADIN евоуле 
-	STRENGTH +10, DEXTERITY +7, AGILITY +5 HEALTH, C_HEALTH + 	60, MAGIC_POWER +25
-
-* циа окоус тоус гяыес евоуле 
-	EXPERIENCE_REQUIRED = EXPERIENCE_REQUIRED * 1.2 + 100 * 	геROS_LEVEL
-
-	RANDOM_EVADE < 300 - AGILITY * AGILITY_BUFF
-
-	C_HEALTH -= DAMAGE/2 + DAMAGE/2 * (10 / (ARMOR_DEFENCE * 	DEFENCE_BUFF))
-
-
-* та статистийа тым MONSTERS енаятымтаи апо то кебек тоу HERO
-  ха амтилетыписоум. етси циа йахе теяас та статистийа тоу
-  еимаи диажояетийа:
-	DRAGON: 	HEALTH = LEVEL * 15 + 50
-			DAMAGE = LEVEL * 10 +20
-			DEFENCE = LEVEL * 5 + 10
-			AGILITY = LEVEL * 5 + 10
-
-	EXOSKELETON: 	HEALTH = LEVEL * 10 + 50
-				DAMAGE = LEVEL * 5 + 10
-				DEFENCE = LEVEL * 10 + 20
-				AGILITY = LEVEL * 5 + 10
-
-	SPIRIT: 	HEALTH = LEVEL * 20 + 50
-			DAMAGE = LEVEL * 5 + 10
-			DEFENCE = LEVEL * 5 + 10
-			AGILITY = LEVEL * 10 + 20
-
-
-  циа ока та теяата исвуеи 	
-	C_HEALTH -= DAMAGE/2 + DAMAGE/2 * (10 / (ARMOR_DEFENCE * 	DEFENCE_BUFF))
-
-* то GRID ха еимаи лиа йкасг поу ха евеи ыс лекг диастасеис 
-  йаи ема дисдиастато пимайа ле аутес тис диастасеис апо 
-  тетяацыма, йахыс йаи ема деийтг се тетяацымо поу ха кеитоуяцеи ыс тгм хесг тым гяыым. евеи ояистеи
-	60% пихамотгта ма маи ема COMMON SQUARE
-	30% циа MARKET SQUARE 
-	10% циа NON ACCESSIBLE SQUARE
-
-* о ваятгс еимаи емас дисдиастатос аяихлглемос пимайас ле 
-  цяаллата та опоиа деивмоум ти тетяацымо еимаи йаи ам 
-  еимаи ои гяыес се ауто
-
-* та лаRKETSQUARE евоум ыс лекос лиа статийг MARKET поу еимаи 
-  г йкасг поу кеитоуяцеи сам тгм ацояа. та пяоиомта тоу
-  лаяйет диабафомтаи апо аявеио items.txt йаи еимаи йоима
-  циа ока та тетяацыма
- 
-  то аявеио еимаи диалояжылемо ыс енгс: пеяиевеи 5 тетяадес
-  амтийеилемым дгкадг опко, нояйи, памопкиа йаи жиктяо йаи
-  диабафомтаи ле тг сеияа стом CTOR TOY MARKET
-
-* циа тис епикоцес апо то вягстг сто MARKET упаявоум еидийес
-  сумаятгсеис лемоу
-
-* ста COMMON SQUARES упаявеи 50% пихамотгта ма цимеи лавг
-
-* стг лавг хеыяоуле оти о вягстгс текеиысе то цуяо тоу ломо
-  ам епитехгйе, вягсилопоигсе нояйи г жиктяо. лпояеи ма 
-  аккафеи памопкиа йаи опко выяис ма вамеи то цуяо
-
-* лета апо тгм епихесг тым гяыым акка йаи лета йаи тым теяатым
-  та BUFFS ле тис епидяасеис тым жиктяым йаи йаи тым нояйиым 
-  емглеяымомтаи йаи ам циа йапоио евоум пеяасеи ои цуяои поу
-  евпум ояистеи тоте диацяажетаи
-
-* се йахе цуяо пяыта епитихемтаи ои гяыес, лета та теяата йаи 
-  лета циметаи г апойатастасг леяоус тгс фыгс йаи тгс 
-  емеяцеиас тым гяыым.
-
-* г епихесг тым теяатым стоус гяыес циметаи
-	Damage = MonstersDamage*MonstersDamageBuff 
-
-* H епихесг тым гяыым ста теяата циметаи ажоу евоум ейтупыхеи
-  ои хесеис тым теяатым( ле _ ала дем упаявеи теяас)
-	Damage = HerosStrength/4*DamageBuff + WeaponsDamage
-		йаи ам дем евеи опко
-	Damage = HerosStrength/4*DamageBuff
-
-  циа нояйи 
-	Damage = SpellDamage + herosDexterity/3*DamageBuff
-  йаи дглиоуяцеитаи йаи амтистоиво BUFF амакоца ле то 
-  тупо тоу нояйиоу
-
-  циа жиктяо апка дглиоуяцеитаи амтистоиво BUFF амакоца
-  ле то тупо тоу жиктяоу
-
-* лета тг лавг упаявеи сумаятгсг г опоиа димеи('г паиямеи) 
-  кежта йаи елпеияиа апо тоус гяыес амакоца ам мийгсам, йаи
-  екецвеи ам пяепеи ма амебоум кебек
-	XP += MonstersLevel * 200
-	Money += MonsterLevel * 75
-
-* цемийа стгм леим упаявеи ема цемийо аявийо лемоу поу 
-  йаходгцеи то вягстг йаи пяовыяаеи то паивмиди
-
-*** емтокес 
-	g++ *.cpp
-	./a.out 
+~  This project involves a simple RPG turn-based game through the command line, developed in C++.
+  Up to three heroes can be spawned in the game world, a Warrior a Paladin or a Sorcerer each one 
+  with his special tilt. The game's world is based on a grid where our heroes move in search of gold
+  fame and epic battles.
+   By exploring the grid our heroes can battle the monsters that lurk in some areas or even find a market 
+  to upgrade their gear, buy potions and discover spells to use in their advantage. After each battle that
+  the heroes have won, they will be granted experience points so as to raise their statistics but also an 
+  amount of gold to use in the market. A battle can be triggered by moving to  a common square in the grid
+  and the market by moving to a market square respectively.
+   A hero's equipment consists of a weapon and an armor, the first is used to deal damage while the second
+  to decrease the damage received. Also, a hero can carry potions that either restore health or mana, or 
+  grant the hero a buff to boost his damage, defence or agility for an amount of turns. A hero can also 
+  use powerful spells against his enemies that put a buff on each monster he attacks decreasing a certain
+  stat for a couple of turns. In addition, each hero type (Warrior-Paladin-Sorcerer) has his own advantage
+  concerning his statistics. Moreover, a Warrior has a boosted attack, a Paladin a boosted health while a
+  Sorcerer can use spells more efficiently than the other heroes. 
+  
+  _If you have any questions programming-wise you are more than welcome to send me an e-mail :).
