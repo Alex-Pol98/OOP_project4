@@ -6,8 +6,6 @@
 const int SQUARE_TYPE_MARKET = 1;
 const int SQUARE_TYPE_NON_ACCESSIBLE = 2;
 const int SQUARE_TYPE_COMMON = 3;
-//const int START_VALUE = -1;
-
 
 class Square
 {

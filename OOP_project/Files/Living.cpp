@@ -8,7 +8,6 @@
 using namespace std;
 
 /*Living functions*/
-
 void Living::set_health(int h) { health = h; }
 int Living::get_health() { return health; }
 int Living::get_level() { return lvl; }
@@ -45,6 +44,8 @@ void Hero::print_stats()
 		cout << "No equipped armor" << endl;
 	}
 }
+
+/* Getters for Hero's Fields */
 string Hero::get_name() { return name; }
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
@@ -54,8 +55,9 @@ int Hero::get_money() { return money; }
 int Hero::get_experience() { return experience; }
 int Hero::get_expreq() { return exp_req; }
 
-void Hero::equip_weapon()
-{
+/* Functions to equip weapon to the Hero from his Inventory */
+void Hero::equip_weapon()                       // overloaded function that shows the user the Weapons and let him choose which one to equip
+{                                               // with calling the equip_weapon(no)
     int option;
 
     inv.print_weapons();
@@ -74,19 +76,19 @@ void Hero::equip_weapon()
     equip_weapon(option);
 }
 
-void Hero::equip_weapon(int no)
-{
+void Hero::equip_weapon(int no)                         // this one checks if there is already an equipped weapon and if there is
+{                                                       // it changes the two
 	if (inv.weapon_list.size() >= no && no > 0)
 	{
 		if (weapon == NULL)
-		{
-			weapon = new Weapon(inv.weapon_list[no - 1]);
+		{                                                   // if there isnt a weapon we create one same as the chosen of the Inventory
+			weapon = new Weapon(inv.weapon_list[no - 1]);   // and removes this from the Inventory
 			inv.remove_weapon(no);
 			cout << "Weapon equipped" << endl;
 		}
 		else
-		{
-			Weapon tmp(*weapon);
+		{                                                   // if there is one we create a temporary weapon and swaps the chosen one
+			Weapon tmp(*weapon);                            // with the Inventory's through the temporary one
 			delete weapon;
 			weapon = new Weapon(inv.weapon_list[no - 1]);
 			inv.remove_weapon(no);
@@ -100,7 +102,8 @@ void Hero::equip_weapon(int no)
 	}
 }
 
-void Hero::equip_armor()
+/* Functions to equip armor to the Hero from his Inventory */
+void Hero::equip_armor()                                    // same as the equip_weapon
 {
     int option;
 
@@ -146,9 +149,11 @@ void Hero::equip_armor(int no)
 	}
 }
 
+/* Functions to add and take Money from the Hero */
 void Hero::addMoney(int mon) { money = money + mon; }
 void Hero::subMoney(int mon) { money = money - mon; }
 
+/* Functions to delete the equipped Armor and Weapon from the Hero */
 void Hero::tossArmor()
 {
 	delete armor;
@@ -161,11 +166,13 @@ void Hero::tossWeapon()
 	weapon = NULL;
 }
 
-void Hero::addExperience(int value)                 // Loukas
+/* Function to add XP to the Hero */
+void Hero::addExperience(int value)
 {
     experience += value;
 }
 
+/* Getters for the equipped Armor and Weapon of the Hero */
 Armor* Hero::getEquippedArmor() { return this->armor; }
 Weapon* Hero::getEquippedWeapon() { return this->weapon; }
 
@@ -175,10 +182,10 @@ void Warrior::check_levelup()
 	if (experience >= exp_req)
 	{
 		experience = experience - exp_req;
-		exp_req = exp_req * 1.2 + 100 *lvl;
+		exp_req = exp_req * 1.2 + 100 *lvl; // EXPERIENCE_REQUIRED = EXPERIENCE_REQUIRED * 1.2 + 100 * WARRIORS_LEVEL
 		lvl++;
-		strength += +10;
-		dexterity += +5;
+		strength += +10;                    // FOR THE LEVEL UP: STRENGTH +10, DEXTERITY +5, AGILITY, +7 HEALTH, C_HEALTH + 50
+		dexterity += +5;                    //                   MAGIC_POWER + 15
 		agility += +7;
 		health += +50;
 		c_health += +50;
@@ -187,14 +194,17 @@ void Warrior::check_levelup()
 	}
 }
 
+/* Getters for Warrior's Fields */
 int Warrior::get_chealth() { return c_health; }
 int Warrior::get_cmagicpower() { return c_magicpower; }
 
+/* Function to substract magic power from the Warrior */
 void Warrior::sub_magicpower(int value)
 {
 	c_magicpower = c_magicpower - value;
 }
 
+/* Function to restore the health of a Warrior */
 void Warrior::restore_health(int value)
 {
 	c_health = c_health + value;
@@ -205,6 +215,7 @@ void Warrior::restore_health(int value)
 	cout << "Health restored!" << endl;
 }
 
+/* Function to restore the magic power of a Warrior */
 void Warrior::restore_magicpower(int value)
 {
 	c_magicpower = c_magicpower + value;
@@ -215,14 +226,14 @@ void Warrior::restore_magicpower(int value)
 	cout << "Magic power restored!" << endl;
 }
 
+/* Function for the Warrior to receive the damage */
 void Warrior::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
-	if (evade < (300 - (agility*buffs.get_all_agi())))
+	if (evade < (300 - (agility*buffs.get_all_agi())))  // RANDOM_EVADE < 300 - AGILITY * AGILITY_BUFF
 	{
-        if(armor != NULL)
+        if(armor != NULL)                               // C_HEALTH -= DAMAGE/2 + DAMAGE/2 * (10 / (ARMOR_DEFENCE * DEFENCE_BUFF))
             c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
         else
             c_health = c_health - dmg;
@@ -254,8 +265,8 @@ void Sorcerer::check_levelup()
 	if (experience >= exp_req)
 	{
 		experience = experience - exp_req;
-		exp_req = exp_req * 1.2 + 100 *lvl;
-		lvl++;
+		exp_req = exp_req * 1.2 + 100 *lvl;             // FOR THE LEVEL UP: STRENGTH +5, DEXTERITY +10, AGILITY +7, HEALTH, C_HEALTH + 30,
+		lvl++;                                          //                   MAGIC_POWER +35
 		strength += +5;
 		dexterity += +10;
 		agility += +7;
@@ -266,17 +277,18 @@ void Sorcerer::check_levelup()
 	}
 }
 
+/* Getters for Sorcerer's Fields */
 int Sorcerer::get_chealth() { return c_health; }
 int Sorcerer::get_cmagicpower() { return c_magicpower; }
 
+/* Function for the Sorcerer to receive Damage */
 void Sorcerer::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		if(armor != NULL)
+		if(armor != NULL)                               // SAME
             c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
         else
             c_health = c_health - dmg;
@@ -293,11 +305,13 @@ void Sorcerer::receive_damage(int dmg)
 	}
 }
 
+/* Function to substract magic power from the Sorcerer */
 void Sorcerer::sub_magicpower(int value)
 {
 	c_magicpower = c_magicpower - value;
 }
 
+/* Function to restore the health of a Sorcerer */
 void Sorcerer::restore_health(int value)
 {
 	c_health = c_health + value;
@@ -308,6 +322,7 @@ void Sorcerer::restore_health(int value)
 	cout << "Health restored!" << endl;
 }
 
+/* Function to restore the magic power of a Sorcerer */
 void Sorcerer::restore_magicpower(int value)
 {
 	c_magicpower = c_magicpower + value;
@@ -334,8 +349,8 @@ void Paladin::check_levelup()
 	if (experience >= exp_req)
 	{
 		experience = experience - exp_req;
-		exp_req = exp_req * 1.2 + 100 *lvl;
-		lvl++;
+		exp_req = exp_req * 1.2 + 100 *lvl;             // FOR THE LEVEL UP: STRENGTH +10, DEXTERITY +7, AGILITY +5 HEALTH, C_HEALTH + 60
+		lvl++;                                          //                   MAGIC_POWER +25
 		strength += +10;
 		dexterity += +7;
 		agility += +5;
@@ -346,14 +361,14 @@ void Paladin::check_levelup()
 	}
 }
 
+/* Function for a Paladin to receive damage */
 void Paladin::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-        if(armor != NULL)
+        if(armor != NULL)       // SAME
             c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
         else
             c_health = c_health - dmg;
@@ -370,14 +385,17 @@ void Paladin::receive_damage(int dmg)
 	}
 }
 
+/* Getters for Paladin's Fields */
 int Paladin::get_chealth() { return c_health; }
 int Paladin::get_cmagicpower() { return c_magicpower; }
 
+/* Function to substract magic power from a Pladin */
 void Paladin::sub_magicpower(int value)
 {
 	c_magicpower = c_magicpower - value;
 }
 
+/* Function to restore the health of a Paladin */
 void Paladin::restore_health(int value)
 {
 	c_health = c_health + value;
@@ -388,6 +406,7 @@ void Paladin::restore_health(int value)
 	cout << "Health restored!" << endl;
 }
 
+/* Function to restore the magic power of a Paladin */
 void Paladin::restore_magicpower(int value)
 {
 	c_magicpower = c_magicpower + value;
@@ -444,9 +463,9 @@ void Dragon::print_data()
 	cout << "Type: Dragon__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
 }
 
+/* Function for a dragon to receive damage */
 void Dragon::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
@@ -480,13 +499,13 @@ void  Exoskeleton::print_data()
 	cout << "Type: Exoskeleton__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
 }
 
+/* Function for an Exoskeleton to receive damage */
 void Exoskeleton::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
-	{
+	{                               // SAME
 		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (defence*buffs.get_all_def())));
 		if (c_health <= 0)
 		{
@@ -518,13 +537,13 @@ void Spirit::print_data()
 	cout << "Type: Spirit__" << "Health remaining: " << c_health << "__Level: " << lvl << endl;
 }
 
+/* Function for a Spirit to receive damage */
 void Spirit::receive_damage(int dmg)
 {
-//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
-	{
+	{                               // SAME
 		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (defence*buffs.get_all_def())));
 		if (c_health <= 0)
 		{

@@ -15,9 +15,7 @@ Grid::Grid(int x, int y): dimensionX(x), dimensionY(y)
 {
     int r;
 
-    //srand(time(NULL));
-
-    grid = new Square**[y];
+    grid = new Square**[y];                     // the grid is a 2D array of Square Pointers
     for(int i = 0; i < y; ++i)
         grid[i] = new Square*[x];
 
@@ -27,8 +25,8 @@ Grid::Grid(int x, int y): dimensionX(x), dimensionY(y)
     else
         grid[0][0] = new CommonSquare(0, 0);
 
-    for(int i = 0; i < x; i++)
-        for(int j = 0; j < y; j++)
+    for(int i = 0; i < x; i++)                  // then each other than the first square if being initialized through new to a
+        for(int j = 0; j < y; j++)              // Common Market or a NonAccessible Square with dimension i,j of the loop
         {
             if(i != 0 || j != 0)
             {
@@ -42,7 +40,7 @@ Grid::Grid(int x, int y): dimensionX(x), dimensionY(y)
             }
         }
 
-    currentPosition = grid[0][0];
+    currentPosition = grid[0][0];               // the currentPosition is set to the first Square of the Grid
 }
 
 /* Class Dtor */
@@ -73,12 +71,12 @@ int Grid::getDimY()
 /* Function to move the hero onto the Grid */
 bool Grid::moveGrid()
 {
-    bool didItMove = false;         // Loukas - variable to return whether the Hero moved or not in the grid
-    char direction;
+    bool didItMove = false;         // variable to return whether the Hero moved or not in the grid
+    char direction;                 // the user chooses direction and for each direction we check if the current square is in a grid's edge or
     cout << "Please choose the direction:\n(w: Up, a: Left, s: Down, d: Right)" << endl;
-    cin >> direction;
+    cin >> direction;               // if the next square is a non accessible and then we change currentPosition dimensions through the setters
     while(direction != 'w' && direction != 'a' && direction != 's' && direction != 'd')
-    {
+    {                               // and point it to the next square
         cout << "Wrong Input\nPlease Choose again the direction:\n(Only Lower Case Letters)" << endl;
         cin >> direction;
     }

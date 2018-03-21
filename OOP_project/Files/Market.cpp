@@ -107,6 +107,7 @@ void Market::addWeapon(string nm, int pr, int mlvl, int dmg, bool hd)
     Weapon* newWeapon = new Weapon(nm, pr, mlvl, dmg, hd);
     this->weapons.push_back(*newWeapon);
 }
+
 /* Function to add Weapon from the .txt file to the Market's Vectors */
 void Market::addSpell(string nm, string tp, int pr, int mlvl, int dmg, int manr)
 {
@@ -118,15 +119,17 @@ void Market::addSpell(string nm, string tp, int pr, int mlvl, int dmg, int manr)
         newSpell = new LightningSpell(nm, pr, mlvl, dmg, manr);
     else if(tp == "Ice")
         newSpell = new IceSpell(nm, pr, mlvl, dmg, manr);
-    //Spell* newSpell = new Spell(nm, tp, pr, mlvl, dmg, manr);
+
     this->spells.push_back(*newSpell);
 }
+
 /* Function to add Weapon from the .txt file to the Market's Vectors */
 void Market::addArmor(string nm, int pr, int mlvl, int def)
 {
     Armor* newArmor = new Armor(nm, pr, mlvl, def);
     this->armors.push_back(*newArmor);
 }
+
 /* Function to add Weapon from the .txt file to the Market's Vectors */
 void Market::addPotion(string nm, int pr, int mlvl, string tp, int pow)
 {
@@ -134,7 +137,7 @@ void Market::addPotion(string nm, int pr, int mlvl, string tp, int pow)
     this->potions.push_back(*newPotion);
 }
 
- void Market::print_spells()
+ void Market::print_spells()                                // Functions to print the <item>s of the Market
 {
 	for (unsigned int i = 0; i < spells.size(); i++)
 	{

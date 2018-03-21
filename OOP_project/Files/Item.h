@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
- 
+
 using namespace std;
 
 /*Abstract class Item*/
@@ -58,7 +58,7 @@ public:
 class Potion :public Item
 {
 protected:
-	string type; /*Type of stat to increase (Health-Magic-Damage-Defence-Agility)*/
+	string type; //Type of stat to increase (Health-Magic-Damage-Defence-Agility)
 	int power;   // Determines how much will it increase its type
 public:
 	Potion(string nm, int pr, int mlvl, string tp, int pow);

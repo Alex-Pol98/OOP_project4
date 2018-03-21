@@ -13,12 +13,9 @@ class MarketSquare : public Square
         void displayMenu(Hero**);
         void buy(Hero*);
         void sell(Hero*);
-        static Market* market;
+        static Market* market;                      // static Market so that all the MarketSquares have the same Market
         static Market* getMarket(ifstream &inFile);
-        //Market* market; //Sklavenitis prepei na ginei static gia na exoyn prosbash ola ta square sto idio market alla den kserw pws
 };
-
-//Market MarketSquare::market;
 
 void showMarketOptions();
 void showBuyOptions();

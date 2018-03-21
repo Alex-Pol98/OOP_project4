@@ -9,8 +9,8 @@
 
 using namespace std;
 
-const int COMMON_SQUARE_POSSIBILITY = 40;
-const int MARKET_SQUARE_POSSIBILITY = 10;
+const int COMMON_SQUARE_POSSIBILITY = 40;           // these possibilities are for the Grid Ctor: there is a 60% possibility(100% - 40%)
+const int MARKET_SQUARE_POSSIBILITY = 10;           // for a Common Square, 30% for a Market Square(40% - 10%) and 10% for a NonAccessible
 
 class Grid
 {

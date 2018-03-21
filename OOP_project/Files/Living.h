@@ -16,7 +16,7 @@ protected:
 	int lvl;
 	int health;
 public:
-	Living(int h = 100, int l = 1)
+	Living(int h = 100, int l = 1)          // LIVING STARTING: HEALTH 100, LEVEL 1
 	{
 		lvl = l;
 		health = h;
@@ -52,7 +52,7 @@ public:
 		strength = str;
 		dexterity = dex;
 		agility = agi;
-		money = 500;
+		money = 500;                            // HERO STARTING: MONEY 500, EXPERIENCE 0, EXPERIENCE_REQUIRED 1000
 		experience = 0;
 		exp_req = 1000;
 		armor = NULL;
@@ -75,15 +75,39 @@ public:
 	void equip_armor(int no);
 
 	//These functions should not be accessed from a Hero class perspective
-	virtual void restore_health(int value) { cout << "BAD ACCESS!" << endl; };
-	virtual void restore_magicpower(int value) { cout << "BAD ACCESS!" << endl; }
-	virtual void receive_damage(int dmg) { cout << "BAD ACCESS!" << endl; }
-	virtual int get_chealth() { cout << "BAD ACCESS!" << endl; return 0; }
-	virtual int get_cmagicpower() { cout << "BAD ACCESS!" << endl; return 0; }
-	virtual void sub_magicpower(int value){cout << "BAD ACCESS!";}
+	virtual void restore_health(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void restore_magicpower(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void receive_damage(int dmg)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual int get_chealth()
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual int get_cmagicpower()
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void sub_magicpower(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
 
 
-	void addExperience(int value);                                  
+	void addExperience(int value);
 	void addMoney(int mon);
 	void subMoney(int mon);
 	void tossArmor();
@@ -104,7 +128,7 @@ protected:
 
 public:
 	Warrior(string nm, int h = 150, int mag = 100, int str = 60, int dex = 30, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
-	{
+	{   // WARRIOR STARTING: HEALTH 150,MAGIC_POWER 100, STRENGTH 60, DEXTERITY 30, AGILITY 45
 		c_health = health;
 		c_magicpower = magic_power;
 		c_strength = strength;
@@ -132,7 +156,7 @@ protected:
 	int c_agility;
 public:
 	Sorcerer(string nm, int h = 130, int mag = 250, int str = 30, int dex = 60, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
-	{
+	{   // SORCERER STARTING: HEALTH 130,MAGIC_POWER 250, STRENGTH 30, DEXTERITY 60, AGILITY 45
 		c_health = health;
 		c_magicpower = magic_power;
 		c_strength = strength;
@@ -160,7 +184,7 @@ protected:
 	int c_agility;
 public:
 	Paladin(string nm, int h = 180, int mag = 140, int str = 60, int dex = 45, int agi = 30) : Hero(nm,h, mag, str, dex, agi)
-	{
+	{   // PALADIN STARTING: HEALTH 180,MAGIC_POWER 140, STRENGTH 60, DEXTERITY 45, AGILITY 30
 		c_health = health;
 		c_magicpower = magic_power;
 		c_strength = strength;
@@ -213,12 +237,12 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Dragon(int lvl_input) :Monster(lvl_input) //The stats of a dragon depend on the level that has been inputed.
+	Dragon(int lvl_input) :Monster(lvl_input)   //The stats of a dragon depend on the level that has been inputed.
 	{
-		set_health(lvl_input * 15 + 50);
-		set_damage(20 + lvl_input * 10);
-		set_defence(10 + lvl_input * 5);
-		set_agility(10 + lvl_input * 5);
+		set_health(lvl_input * 15 + 50);        // HEALTH = LEVEL * 15 + 50
+		set_damage(20 + lvl_input * 10);        // DAMAGE = LEVEL * 10 +20
+		set_defence(10 + lvl_input * 5);        // DEFENCE = LEVEL * 5 + 10
+		set_agility(10 + lvl_input * 5);        // AGILITY = LEVEL * 5 + 10
 
 		c_health = health;
 		c_damage = damage;
@@ -247,12 +271,12 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Exoskeleton(int lvl_input) :Monster(lvl_input) //The stats of an Exoskeleton depend on the level that has been inputed.
+	Exoskeleton(int lvl_input) :Monster(lvl_input)  //The stats of an Exoskeleton depend on the level that has been inputed.
 	{
-		set_health(lvl_input * 10 + 50);
-		set_damage(10 + lvl_input * 5);
-		set_defence(20 + lvl_input * 10);
-		set_agility(10 + lvl_input * 5);
+		set_health(lvl_input * 10 + 50);            // HEALTH = LEVEL * 10 + 50
+		set_damage(10 + lvl_input * 5);             // DAMAGE = LEVEL * 5 + 10
+		set_defence(20 + lvl_input * 10);           // DEFENCE = LEVEL * 10 + 20
+		set_agility(10 + lvl_input * 5);            // AGILITY = LEVEL * 5 + 10
 
 		c_health = health;
 		c_damage = damage;
@@ -282,12 +306,12 @@ protected:
 	int c_defence;
 	int c_agility;
 public:
-	Spirit(int lvl_input) :Monster(lvl_input) //The stats of a Spirit depend on the level that has been inputed.
+	Spirit(int lvl_input) :Monster(lvl_input)   //The stats of a Spirit depend on the level that has been inputed.
 	{
-		set_health(lvl_input * 20 + 50);
-		set_damage(10 + lvl_input * 5);
-		set_defence(10 + lvl_input * 5);
-		set_agility(20 + lvl_input * 10);
+		set_health(lvl_input * 20 + 50);        // HEALTH = LEVEL * 20 + 50
+		set_damage(10 + lvl_input * 5);         // DAMAGE = LEVEL * 5 + 10
+		set_defence(10 + lvl_input * 5);        // DEFENCE = LEVEL * 5 + 10
+		set_agility(20 + lvl_input * 10);       // AGILITY = LEVEL * 10 + 20
 
 		c_health = health;
 		c_damage = damage;

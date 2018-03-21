@@ -25,7 +25,7 @@ public:
 	int get_minlvl();
 	int get_damage();
 	int get_manareq();
-	string get_type(); /*Types: Fire,Ice,Lighting*/
+	string get_type();  // Types: Fire, Ice, Lighting
 	void print_info();
 };
 

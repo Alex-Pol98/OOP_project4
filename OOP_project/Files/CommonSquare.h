@@ -5,7 +5,7 @@
 #include "Buff.h"
 #include "Buff_list.h"
 
-const int BATTLE_POSSIBILITY = 50;
+const int BATTLE_POSSIBILITY = 50;                              // battlePossibility is 50, if rand returns over 50 we have Battle else noBattle
 
 class CommonSquare: public Square
 {

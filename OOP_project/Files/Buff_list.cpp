@@ -5,12 +5,15 @@
 
 using namespace std;
 
+/* Ctor of the Buff List */
 Buff_list::Buff_list() { ; }
 
-void Buff_list::add_dmgbuff(int per, int tur) { damage_buffs.push_back(Buff(per, tur)); }
+/* Functions to add Buffs in the Buff Lists(Damage, Defence, Agility */
+void Buff_list::add_dmgbuff(int per, int tur) { damage_buffs.push_back(Buff(per, tur)); }       // with the pushBack function of vectors
 void Buff_list::add_defbuff(int per, int tur) { defence_buffs.push_back(Buff(per, tur)); }
 void Buff_list::add_agibuff(int per, int tur) { agility_buffs.push_back(Buff(per, tur)); }
 
+/* Function to update the Buffs(decrease their turn) after each round in the update_buffs in the battle */
 void Buff_list::move_buffs()
 {
 	for (int i = 0; i < damage_buffs.size() ; i++)
@@ -25,9 +28,10 @@ void Buff_list::move_buffs()
 	{
 		agility_buffs[i].move_turn();
 	}
-	cout << "Buffs have been updated" << endl;
+	//cout << "Buffs have been updated" << endl;
 }
 
+/* Function to check if the Buffs expired in the update_buffs in the battle */
 void Buff_list::check_buffs()
 {
 	for (int i = 0; i < damage_buffs.size(); i++)
@@ -35,7 +39,7 @@ void Buff_list::check_buffs()
 		if (damage_buffs[i].get_turns() <= 0)
 		{
 			damage_buffs.erase(damage_buffs.begin()+i);
-			i--; //Because i will point to the next item in the vector after the erase
+			i--;    //Because i will point to the next item in the vector after the erase
 		}
 	}
 	for (int i = 0; i < defence_buffs.size(); i++)
@@ -43,7 +47,7 @@ void Buff_list::check_buffs()
 		if (defence_buffs[i].get_turns() <= 0)
 		{
 			defence_buffs.erase(defence_buffs.begin() + i);
-			i--; //Because i will point to the next item in the vector after the erase
+			i--;    //Because i will point to the next item in the vector after the erase
 		}
 	}
 	for (int i = 0; i < agility_buffs.size(); i++)
@@ -51,12 +55,13 @@ void Buff_list::check_buffs()
 		if (agility_buffs[i].get_turns() <= 0)
 		{
 			agility_buffs.erase(agility_buffs.begin() + i);
-			i--; //Because i will point to the next item in the vector after the erase
+			i--;    //Because i will point to the next item in the vector after the erase
 		}
 	}
-	cout << "Buffs have been checked" << endl;
+	//cout << "Buffs have been checked" << endl;
 }
 
+/* Function to empty the buffs */
 void Buff_list::empty_buffs()
 {
 	damage_buffs.clear();
@@ -64,6 +69,7 @@ void Buff_list::empty_buffs()
 	agility_buffs.clear();
 }
 
+/* Function to get the Damage Buff Multiplier */
 double Buff_list::get_all_dmg()
 {
 	double dmg = 1;
@@ -74,6 +80,7 @@ double Buff_list::get_all_dmg()
 	return dmg;
 }
 
+/* Function to get the Defence Buff Multiplier */
 double Buff_list::get_all_def()
 {
 	double def = 1;
@@ -84,6 +91,7 @@ double Buff_list::get_all_def()
 	return def;
 }
 
+/* Function to get the Agility Buff Multiplier */
 double Buff_list::get_all_agi()
 {
 	double agi = 1;

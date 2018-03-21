@@ -1,7 +1,6 @@
 #ifndef MARKET_H
 #define MARKET_H
 
-
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -29,7 +28,7 @@ class Market
         void addPotion(string nm, int pr, int mlvl, string tp, int pow);
 
     private:
-        vector<Spell> spells;
+        vector<Spell> spells;           // the vectors that contain each <item> of the Market
         vector<Weapon> weapons;
         vector<Armor> armors;
         vector<Potion> potions;
